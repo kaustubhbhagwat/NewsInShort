@@ -1,0 +1,17 @@
+object Version {
+   const val coreKtx = "1.12.0"
+   const val appcompat = "1.6.1"
+   const val material = "1.11.0"
+   const val lifecycleRuntimeKtx = "2.7.0"
+   const val activityCompose = "1.8.2"
+   const val composeBom = "2024.03.00"
+   const val composeUi = "1.6.4"
+   const val composeUiGraphics = "1.6.4"
+   const val composeUiToolingPreview = "1.6.4"
+   const val composeMaterial3 = "1.2.1"
+   const val navigationCompose = "2.7.7"
+   const val composeUiTooling = "1.3.0"
+   const val composeTestJunit4 = "1.6.4"
+   const val composeUiTestManifest = "1.6.4"
+   const val lifecycleViewModelKtx = "2.7.0"
+}
