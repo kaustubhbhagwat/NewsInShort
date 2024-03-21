@@ -59,4 +59,6 @@ dependencies {
     implementation(Dependencies.composeUiToolingPreview)
     implementation(Dependencies.composeMaterial3)
     testImplementation(libs.androidx.junit)
+
+    implementation(project(Modules.utilities))
 }
