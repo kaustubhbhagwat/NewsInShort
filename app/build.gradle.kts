@@ -40,7 +40,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.9.0"
     }
     packaging {
         resources {
@@ -58,4 +58,5 @@ dependencies {
     implementation(Dependencies.composeUiGraphics)
     implementation(Dependencies.composeUiToolingPreview)
     implementation(Dependencies.composeMaterial3)
+    testImplementation(libs.androidx.junit)
 }

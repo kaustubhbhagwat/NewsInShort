@@ -16,3 +16,7 @@ object Dependencies {
     val composeUiTestManifest  by lazy{"androidx.compose.ui:ui-test-manifest:${Version.composeUiTestManifest}"}
     val lifecycleViewModelKtx  by lazy{"androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycleViewModelKtx}"}
 }
+
+object Modules{
+    const val utilities = ":utilities"
+}
