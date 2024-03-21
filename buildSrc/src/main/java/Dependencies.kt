@@ -4,7 +4,7 @@ object Dependencies {
     val material by lazy{"com.google.android.material:material:${Version.material}"}
     val lifecycleRuntimeKtx by lazy{"androidx.lifecycle:lifecycle-runtime-ktx:${Version.lifecycleRuntimeKtx}"}
     val activityCompose by lazy{"androidx.activity:activity-compose:${Version.activityCompose}"}
-    val composeBom by lazy{"androidx.compose:compose-bom:${Version.activityCompose}"}
+    val composeBom by lazy{"androidx.compose:compose-bom:${Version.compose}"}
     val composeUi by lazy{"androidx.compose.ui:ui:${Version.composeUi}"}
     val composeUiGraphics by lazy{"androidx.compose.ui:ui-graphics:${Version.composeUiGraphics}"}
     val composeUiToolingPreview by lazy{"androidx.compose.ui:ui-tooling:${Version.composeUiToolingPreview}"}
@@ -14,6 +14,11 @@ object Dependencies {
     val composeTestJunit4  by lazy{"androidx.compose.ui:ui-test-junit4:${Version.composeTestJunit4}"}
     val composeUiTestManifest  by lazy{"androidx.compose.ui:ui-test-manifest:${Version.composeUiTestManifest}"}
     val lifecycleViewModelKtx  by lazy{"androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycleViewModelKtx}"}
+
+
+    val hiltAndroid  by lazy{"com.google.dagger:hilt-android:${Version.hilt}"}
+    val hiltAndroidCompiler  by lazy{"com.google.dagger:hilt-android-compiler:${Version.hilt}"}
+    val hiltCompiler  by lazy{"androidx.hilt:hilt-compiler:${Version.hiltCompiler}"}
 }
 
 object Modules{

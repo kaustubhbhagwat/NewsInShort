@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -30,8 +32,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_7
-        targetCompatibility = JavaVersion.VERSION_1_7
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = "17"
@@ -40,7 +42,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.9.0"
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
@@ -53,11 +55,14 @@ dependencies {
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.lifecycleRuntimeKtx)
     implementation(Dependencies.activityCompose)
-    implementation(platform(Dependencies.composeBom))
+    implementation(Dependencies.composeBom)
     implementation(Dependencies.composeUi)
     implementation(Dependencies.composeUiGraphics)
     implementation(Dependencies.composeUiToolingPreview)
     implementation(Dependencies.composeMaterial3)
+    implementation(Dependencies.hiltAndroid)
+    annotationProcessor(Dependencies.hiltAndroidCompiler)
+    annotationProcessor(Dependencies.hiltCompiler)
     testImplementation(libs.androidx.junit)
 
     implementation(project(Modules.utilities))
