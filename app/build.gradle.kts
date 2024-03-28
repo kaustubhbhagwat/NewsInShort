@@ -69,7 +69,9 @@ dependencies {
     implementation(project(Modules.utilities))
     implementation(Dependencies.hiltAndroid)
     kapt(Dependencies.hiltCompiler)
-    implementation(Dependencies.navigationCompose)
+    implementation(Dependencies.hiltNavigationCompose)
+//    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
 
 }
 
