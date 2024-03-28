@@ -66,4 +66,10 @@ dependencies {
     testImplementation(libs.androidx.junit)
 
     implementation(project(Modules.utilities))
+    implementation(Dependencies.hiltAndroid)
+    kapt(Dependencies.hiltCompiler)
+}
+
+kapt{
+    correctErrorTypes = true
 }
