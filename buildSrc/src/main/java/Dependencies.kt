@@ -20,6 +20,13 @@ object Dependencies {
     val hiltAndroidCompiler  by lazy{"com.google.dagger:hilt-android-compiler:${Version.hilt}"}
     val hiltCompiler  by lazy{"androidx.hilt:hilt-compiler:${Version.hiltCompiler}"}
     val hiltNavigationCompose by lazy {"androidx.hilt:hilt-navigation-compose:${Version.hiltNavigationCompose}" }
+
+    val retrofit by lazy {"com.squareup.retrofit2:retrofit:${Version.retrofit}"}
+    val okHttp by lazy {"com.squareup.okhttp3:okhttp:${Version.okHttp}"}
+    val gsonConverter by lazy {"com.squareup.retrofit2:converter-gson:${Version.gsonConverter}"}
+    val moshi by lazy {"com.squareup.moshi:moshi-kotlin:${Version.moshi}"}
+    val moshiConverter by lazy {"com.squareup.retrofit2:converter-moshi:${Version.moshiConverter}"}
+    val loggingInterceptor by lazy {"com.squareup.okhttp3:logging-interceptor:${Version.loggingInterceptor}"}
 }
 
 object Modules{

@@ -70,9 +70,13 @@ dependencies {
     implementation(Dependencies.hiltAndroid)
     kapt(Dependencies.hiltCompiler)
     implementation(Dependencies.hiltNavigationCompose)
-//    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
-
+    implementation(Dependencies.retrofit)
+    implementation(Dependencies.okHttp)
+    implementation(Dependencies.gsonConverter)
+    implementation(Dependencies.moshi)
+    implementation(Dependencies.moshiConverter)
+    implementation(Dependencies.loggingInterceptor)
 }
 
 kapt{
