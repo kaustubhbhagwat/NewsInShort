@@ -5,7 +5,7 @@ import android.util.Log
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class NewsApplication:  Application() {
+public class NewsApplication:  Application() {
 
     override fun onCreate() {
         super.onCreate()

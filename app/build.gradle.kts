@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    kotlin("kapt")
 }
 
 android {
@@ -61,13 +61,16 @@ dependencies {
     implementation(Dependencies.composeUiToolingPreview)
     implementation(Dependencies.composeMaterial3)
     implementation(Dependencies.hiltAndroid)
-    annotationProcessor(Dependencies.hiltAndroidCompiler)
-    annotationProcessor(Dependencies.hiltCompiler)
+    implementation(libs.androidx.junit.ktx)
+    kapt(Dependencies.hiltAndroidCompiler)
+    kapt(Dependencies.hiltCompiler)
     testImplementation(libs.androidx.junit)
 
     implementation(project(Modules.utilities))
     implementation(Dependencies.hiltAndroid)
     kapt(Dependencies.hiltCompiler)
+    implementation(Dependencies.navigationCompose)
+
 }
 
 kapt{

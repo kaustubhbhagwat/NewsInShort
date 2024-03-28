@@ -19,6 +19,7 @@ object Dependencies {
     val hiltAndroid  by lazy{"com.google.dagger:hilt-android:${Version.hilt}"}
     val hiltAndroidCompiler  by lazy{"com.google.dagger:hilt-android-compiler:${Version.hilt}"}
     val hiltCompiler  by lazy{"androidx.hilt:hilt-compiler:${Version.hiltCompiler}"}
+    val hiltNavigationCompose by lazy { "androidx.navigation:navigation-compose:${Version.hiltNavigationCompose}" }
 }
 
 object Modules{
