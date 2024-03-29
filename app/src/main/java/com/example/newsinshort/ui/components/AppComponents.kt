@@ -1,6 +1,7 @@
 package com.example.newsinshort.ui.components
 
-import android.widget.Space
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,26 +16,33 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.AsyncImage
 import com.example.newsinshort.R
 import com.example.newsinshort.data.entity.Article
 import com.example.newsinshort.data.entity.NewsResponse
 import com.example.newsinshort.data.entity.Source
 import com.example.newsinshort.ui.theme.Purple40
+import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -107,8 +115,61 @@ fun NewsRowComponent(page: Int, article: Article) {
         HeadingTextComponent(textValue = article.title ?: "")
         Spacer(modifier = Modifier.size(10.dp))
         NormalTextComponent(textValue = article.description ?: "")
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.size(20.dp))
 
+
+//        TextField(
+//            // on below line we are specifying
+//            // value for our  text field.
+//            value = article.url.toString(),
+//
+//            // on the below line we are adding on
+//            // value change for text field.
+//            onValueChange = { article.url = it },
+//
+//            // on below line we are adding place holder as text
+//            placeholder = { Text(text = "Enter your URL") },
+//
+//            // on the below line we are adding modifier to it
+//            // and adding padding to it and filling max width
+//            modifier = Modifier
+//                .padding(16.dp)
+//                .fillMaxWidth(),
+//
+//            // on the below line we are adding text style
+//            // specifying color and font size to it.
+//            textStyle = TextStyle(color = Color.Black, fontSize = 15.sp),
+//
+//            // on below line we are
+//            // adding single line to it.
+//            singleLine = true
+//        )
+
+        // on below line adding a spacer.
+        val ctx = LocalContext.current
+        // on below line adding a button to open URL
+        Button(   colors = ButtonDefaults.buttonColors(containerColor = Purple40)
+            ,modifier = Modifier.fillMaxWidth(),  onClick = {
+            val urlIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(article.url)
+            )
+            ctx.startActivity(urlIntent)
+        }) {
+            // on below line creating a text for our button.
+            Text(
+                // on below line adding a text ,
+                // padding, color and font size.
+                text = "Open News",
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth(),
+                color = Color.White,
+                fontSize = 15.sp
+            )
+        }
+        Spacer(modifier = Modifier.size(20.dp))
         AuthorDetailComponent(authorName = article.author, sourceName = article.source?.name)
     }
 }
