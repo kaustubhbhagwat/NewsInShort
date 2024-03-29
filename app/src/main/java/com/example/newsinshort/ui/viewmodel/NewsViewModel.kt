@@ -19,8 +19,6 @@ import javax.inject.Inject
 class NewsViewModel @Inject constructor(
     private val newsRepository: NewsRepository
 ) : ViewModel() {
-
-
     // MutableStateFLow can be assigned from the viewmodel itself
     private val _news: MutableStateFlow<ResourceState<NewsResponse>> =
         MutableStateFlow(ResourceState.Loading())
