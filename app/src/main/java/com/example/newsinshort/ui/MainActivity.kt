@@ -9,6 +9,7 @@ import com.example.newsinshort.ui.navigation.AppNavigationGraph
 import com.example.newsinshort.ui.theme.NewsInShortTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -24,11 +25,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppEntryPoint(){
+fun AppEntryPoint() {
     AppNavigationGraph()
 }
 
 @Composable
-fun NewsInShortEntryPoint(){
+fun NewsInShortEntryPoint() {
 
 }

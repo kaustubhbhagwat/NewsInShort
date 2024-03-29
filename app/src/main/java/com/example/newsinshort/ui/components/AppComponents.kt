@@ -19,8 +19,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,6 +42,7 @@ import com.example.newsinshort.data.entity.Article
 import com.example.newsinshort.data.entity.NewsResponse
 import com.example.newsinshort.data.entity.Source
 import com.example.newsinshort.ui.theme.Purple40
+import com.example.newsinshort.ui.theme.ColorPrimary
 import kotlinx.coroutines.withContext
 
 
@@ -84,6 +85,7 @@ fun NormalTextComponent(textValue: String) {
             .padding(8.dp)
             .wrapContentHeight(),
         text = textValue,
+        color = ColorPrimary,
         style = TextStyle(
             fontSize = 18.sp,
             fontWeight = FontWeight.Normal,
@@ -95,27 +97,28 @@ fun NormalTextComponent(textValue: String) {
 
 @Composable
 fun NewsRowComponent(page: Int, article: Article) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp)
-            .background(Color.White)
-    ) {
-        AsyncImage(
+    Surface(modifier = Modifier.background(Color.DarkGray)) {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(240.dp),
-            model = article.urlToImage,
-            contentDescription = article.content,
-            contentScale = ContentScale.FillBounds,
-            placeholder = painterResource(id = R.drawable.logo),
-            error = painterResource(id = R.drawable.logo)
+                .fillMaxSize()
+                .background(Color.DarkGray)
         )
-        Spacer(modifier = Modifier.size(20.dp))
-        HeadingTextComponent(textValue = article.title ?: "")
-        Spacer(modifier = Modifier.size(10.dp))
-        NormalTextComponent(textValue = article.description ?: "")
-        Spacer(modifier = Modifier.size(20.dp))
+        {
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(240.dp),
+                model = article.urlToImage,
+                contentDescription = article.content,
+                contentScale = ContentScale.FillBounds,
+                placeholder = painterResource(id = R.drawable.logo),
+                error = painterResource(id = R.drawable.logo)
+            )
+            Spacer(modifier = Modifier.size(20.dp))
+            HeadingTextComponent(textValue = article.title ?: "")
+            Spacer(modifier = Modifier.size(10.dp))
+            NormalTextComponent(textValue = article.description ?: "")
+            Spacer(modifier = Modifier.size(20.dp))
 
 
 //        TextField(
@@ -145,32 +148,34 @@ fun NewsRowComponent(page: Int, article: Article) {
 //            singleLine = true
 //        )
 
-        // on below line adding a spacer.
-        val ctx = LocalContext.current
-        // on below line adding a button to open URL
-        Button(   colors = ButtonDefaults.buttonColors(containerColor = Purple40)
-            ,modifier = Modifier.fillMaxWidth(),  onClick = {
-            val urlIntent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(article.url)
-            )
-            ctx.startActivity(urlIntent)
-        }) {
-            // on below line creating a text for our button.
-            Text(
-                // on below line adding a text ,
-                // padding, color and font size.
-                text = "Open News",
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .padding(10.dp)
-                    .fillMaxWidth(),
-                color = Color.White,
-                fontSize = 15.sp
-            )
+            // on below line adding a spacer.
+            val ctx = LocalContext.current
+            // on below line adding a button to open URL
+            Button(colors = ButtonDefaults.buttonColors(containerColor = ColorPrimary),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    val urlIntent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(article.url)
+                    )
+                    ctx.startActivity(urlIntent)
+                }) {
+                // on below line creating a text for our button.
+                Text(
+                    // on below line adding a text ,
+                    // padding, color and font size.
+                    text = "Open News",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .fillMaxWidth(),
+                    color = Color.White,
+                    fontSize = 15.sp
+                )
+            }
+            Spacer(modifier = Modifier.size(20.dp))
+            AuthorDetailComponent(authorName = article.author, sourceName = article.source?.name)
         }
-        Spacer(modifier = Modifier.size(20.dp))
-        AuthorDetailComponent(authorName = article.author, sourceName = article.source?.name)
     }
 }
 
@@ -182,6 +187,7 @@ fun HeadingTextComponent(textValue: String) {
             .wrapContentHeight()
             .padding(8.dp),
         text = textValue,
+        color = ColorPrimary,
         style = TextStyle(
             fontSize = 24.sp,
             fontWeight = FontWeight.Normal
@@ -191,33 +197,42 @@ fun HeadingTextComponent(textValue: String) {
 
 @Composable
 fun AuthorDetailComponent(authorName: String?, sourceName: String?) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .padding(start = 10.dp, end = 10.dp, bottom = 24.dp)) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 10.dp, end = 10.dp, bottom = 24.dp)
+    ) {
 
         authorName?.also {
-            Text(text = it)
+            Text(
+                text = it, color = ColorPrimary,
+            )
 
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
         sourceName?.also {
-            Text(text = it)
+            Text(
+                text = it,
+                color =ColorPrimary,
+            )
         }
     }
 }
 
 @Composable
-fun EmptySpaceComponent(){
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
+fun EmptySpaceComponent() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
+        verticalArrangement = Arrangement.Center
+    ) {
         Image(painterResource(id = R.drawable.placeholder), contentDescription = null)
     }
-    HeadingTextComponent(textValue ="No News Image now , Please check in sometime" )
+    HeadingTextComponent(textValue = "No News Image now , Please check in sometime")
 
 }
 
@@ -232,13 +247,13 @@ fun NewsRowComponentPreview() {
         "https://img.freepik.com/free-vector/indian-flag-theme-independence-day-decorative-background-vector_1055-10866.jpg?w=1800&t=st=1711707331~exp=1711707931~hmac=78d732f7370925905e8160e19fdc89e51b865676a5613ea2b2ec8b46e47ef76c",
         "null",
         "null",
-        Source("1","asdads"),
+        Source("1", "asdads"),
     )
     NewsRowComponent(page = 0, article = article)
 }
 
 @Preview
 @Composable
-fun EmptySpaceComponentPreview(){
+fun EmptySpaceComponentPreview() {
     EmptySpaceComponentPreview()
 }
