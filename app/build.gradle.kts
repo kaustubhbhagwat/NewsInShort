@@ -79,6 +79,7 @@ dependencies {
     implementation(Dependencies.moshi)
     implementation(Dependencies.coroutinesCore)
     implementation(Dependencies.coroutinesAndroid)
+    implementation(Dependencies.splashScreen)
 }
 
 kapt{
