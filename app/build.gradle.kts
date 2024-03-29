@@ -74,9 +74,10 @@ dependencies {
     implementation(Dependencies.retrofit)
     implementation(Dependencies.okHttp)
     implementation(Dependencies.gsonConverter)
-    implementation(Dependencies.moshi)
     implementation(Dependencies.moshiConverter)
     implementation(Dependencies.loggingInterceptor)
+//    implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
+    implementation(Dependencies.moshi)
 }
 
 kapt{

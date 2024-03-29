@@ -23,7 +23,7 @@ object Version {
    const val retrofit = "2.9.0"
    const val okHttp = "5.0.0-alpha.2"
    const val gsonConverter = "2.9.0"
-   const val moshi = "1.13.0"
+   const val moshi = "1.15.1"
    const val moshiConverter = "2.9.0"
    const val loggingInterceptor = "4.8.1"
 }
