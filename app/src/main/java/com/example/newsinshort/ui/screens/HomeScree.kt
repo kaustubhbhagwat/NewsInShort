@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.newsinshort.ui.components.EmptySpaceComponent
 import com.example.newsinshort.ui.components.Loader
 import com.example.newsinshort.ui.components.NewsList
 import com.example.newsinshort.ui.components.NewsRowComponent
@@ -55,6 +56,8 @@ fun HomeScreen(
                 response.totalResults
                 if(response.articles.isNotEmpty()){
                     NewsRowComponent(page,response.articles.get(page))
+                }else{
+                    EmptySpaceComponent()
                 }
                 Log.d(TAG, "${response.totalResults}")
             }

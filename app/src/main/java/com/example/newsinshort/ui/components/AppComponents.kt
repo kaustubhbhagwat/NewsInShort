@@ -1,6 +1,7 @@
 package com.example.newsinshort.ui.components
 
 import android.widget.Space
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -129,7 +130,9 @@ fun HeadingTextComponent(textValue: String) {
 
 @Composable
 fun AuthorDetailComponent(authorName: String?, sourceName: String?) {
-    Row(modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp, bottom = 24.dp)) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(start = 10.dp, end = 10.dp, bottom = 24.dp)) {
 
         authorName?.also {
             Text(text = it)
@@ -142,6 +145,19 @@ fun AuthorDetailComponent(authorName: String?, sourceName: String?) {
             Text(text = it)
         }
     }
+}
+
+@Composable
+fun EmptySpaceComponent(){
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+        Image(painterResource(id = R.drawable.placeholder), contentDescription = null)
+    }
+    HeadingTextComponent(textValue ="No News Image now , Please check in sometime" )
+
 }
 
 @Preview
@@ -160,3 +176,8 @@ fun NewsRowComponentPreview() {
     NewsRowComponent(page = 0, article = article)
 }
 
+@Preview
+@Composable
+fun EmptySpaceComponentPreview(){
+    EmptySpaceComponentPreview()
+}
