@@ -1,6 +1,5 @@
 package com.example.newsinshort.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsinshort.data.AppConstants
@@ -37,9 +36,5 @@ class NewsViewModel @Inject constructor(
 
     init {
         getNews(AppConstants.COUNTRY)
-    }
-
-    companion object {
-        const val TAG = "NewsViewModel"
     }
 }
