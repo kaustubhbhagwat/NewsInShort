@@ -2,8 +2,6 @@ package com.example.newsinshort.ui.screens
 
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.VerticalPager
@@ -15,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.newsinshort.ui.components.DemoSnackBar
 import com.example.newsinshort.ui.components.Loader
 import com.example.newsinshort.ui.components.NewsRowComponent
 import com.example.newsinshort.ui.viewmodel.NewsViewModel
@@ -56,9 +53,6 @@ fun HomeScreen(
                 response.totalResults
                 if (response.articles.isNotEmpty() && page < response.articles.size - 1) {
                     NewsRowComponent(page, response.articles[page])
-                }
-                else {
-                    DemoSnackBar()
                 }
                 Log.d(TAG, "${response.totalResults}")
             }
