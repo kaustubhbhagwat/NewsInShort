@@ -228,7 +228,10 @@ fun NewsRowComponentPreview() {
         "null",
         Source("1", "asdads"),
     )
-    NewsRowComponent(page = 0, article = article)
+    NewsRowComponent(
+        page = 0,
+        article = article
+    )
 }
 
 @Preview

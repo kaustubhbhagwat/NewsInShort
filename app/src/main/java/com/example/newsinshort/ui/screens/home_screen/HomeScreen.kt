@@ -1,4 +1,4 @@
-package com.example.newsinshort.ui.screens
+package com.example.newsinshort.ui.screens.home_screen
 
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -12,7 +12,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.newsinshort.ui.components.Loader
@@ -65,8 +64,10 @@ fun HomeScreen(
     }
 }
 
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
-}
+//@Preview
+//@Composable
+//fun HomeScreenPreview() {
+//    HomeScreen(
+//
+//    )
+//}
