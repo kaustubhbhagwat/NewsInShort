@@ -22,12 +22,7 @@ fun AppNavigationGraph(){
         NavHost(navController = navContorller, startDestination =Routes.HOME_SCREEN ){
 
             composable(Routes.HOME_SCREEN) {
-                HomeScreen(
-                    onReadFullStoryButtonClick = {
-                        url ->
-                        navContorller.navigate("article_screen?$argKey={$argKey}")
-                    }
-                )
+                HomeScreen()
             }
 
             composable(route = "article_screen?$argKey={$argKey}",
