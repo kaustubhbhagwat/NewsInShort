@@ -1,10 +1,7 @@
 package com.example.newsinshort.ui.components
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,22 +13,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,11 +36,9 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.newsinshort.R
 import com.example.newsinshort.data.entity.Article
-import com.example.newsinshort.data.entity.NewsResponse
 import com.example.newsinshort.data.entity.Source
 import com.example.newsinshort.ui.theme.Purple40
-import com.example.newsinshort.ui.theme.ColorPrimary
-import kotlinx.coroutines.launch
+import com.example.newsinshort.ui.theme.ButtonColor
 
 
 @Composable
@@ -77,16 +63,6 @@ fun Loader() {
 }
 
 @Composable
-fun NewsList(response: NewsResponse) {
-
-    LazyColumn {
-        items(response.articles) { article ->
-            NormalTextComponent(textValue = article.title ?: "Not Available")
-        }
-    }
-}
-
-@Composable
 fun NormalTextComponent(textValue: String) {
     Text(
         modifier = Modifier
@@ -94,7 +70,7 @@ fun NormalTextComponent(textValue: String) {
             .padding(8.dp)
             .wrapContentHeight(),
         text = textValue,
-        color = ColorPrimary,
+        color = Color.LightGray,
         style = TextStyle(
             fontSize = 18.sp,
             fontWeight = FontWeight.Normal,
@@ -106,7 +82,11 @@ fun NormalTextComponent(textValue: String) {
 
 @Composable
 fun NewsRowComponent(page: Int, article: Article) {
-    Surface(modifier = Modifier.background(Color.DarkGray)) {
+    Surface(
+        modifier = Modifier
+            .background(Color.DarkGray)
+            .padding(16.dp)
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -128,40 +108,25 @@ fun NewsRowComponent(page: Int, article: Article) {
             Spacer(modifier = Modifier.size(10.dp))
             NormalTextComponent(textValue = article.description ?: "")
             Spacer(modifier = Modifier.size(20.dp))
+            //Author Title
+            AuthorSourceTitleComponent(
+                authorName = "Author",
+                sourceName = "Source"
+            )
+            // Author and Source
+            AuthorDetailComponent(
+                authorName = article.author,
+                sourceName = article.source?.name
+            )
 
-
-//        TextField(
-//            // on below line we are specifying
-//            // value for our  text field.
-//            value = article.url.toString(),
-//
-//            // on the below line we are adding on
-//            // value change for text field.
-//            onValueChange = { article.url = it },
-//
-//            // on below line we are adding place holder as text
-//            placeholder = { Text(text = "Enter your URL") },
-//
-//            // on the below line we are adding modifier to it
-//            // and adding padding to it and filling max width
-//            modifier = Modifier
-//                .padding(16.dp)
-//                .fillMaxWidth(),
-//
-//            // on the below line we are adding text style
-//            // specifying color and font size to it.
-//            textStyle = TextStyle(color = Color.Black, fontSize = 15.sp),
-//
-//            // on below line we are
-//            // adding single line to it.
-//            singleLine = true
-//        )
-
+            //Open News URL
             // on below line adding a spacer.
             val ctx = LocalContext.current
             // on below line adding a button to open URL
-            Button(colors = ButtonDefaults.buttonColors(containerColor = ColorPrimary),
-                modifier = Modifier.fillMaxWidth(),
+            Button(colors = ButtonDefaults.buttonColors(containerColor = ButtonColor),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
                 onClick = {
                     val urlIntent = Intent(
                         Intent.ACTION_VIEW,
@@ -173,7 +138,7 @@ fun NewsRowComponent(page: Int, article: Article) {
                 Text(
                     // on below line adding a text ,
                     // padding, color and font size.
-                    text = "Open News",
+                    text = "Read Full Story",
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .padding(10.dp)
@@ -182,11 +147,10 @@ fun NewsRowComponent(page: Int, article: Article) {
                     fontSize = 15.sp
                 )
             }
-            Spacer(modifier = Modifier.size(20.dp))
-            AuthorDetailComponent(authorName = article.author, sourceName = article.source?.name)
         }
     }
 }
+
 
 @Composable
 fun HeadingTextComponent(textValue: String) {
@@ -196,7 +160,7 @@ fun HeadingTextComponent(textValue: String) {
             .wrapContentHeight()
             .padding(8.dp),
         text = textValue,
-        color = ColorPrimary,
+        color = Color.White,
         style = TextStyle(
             fontSize = 24.sp,
             fontWeight = FontWeight.Normal
@@ -211,78 +175,46 @@ fun AuthorDetailComponent(authorName: String?, sourceName: String?) {
             .fillMaxWidth()
             .padding(start = 10.dp, end = 10.dp, bottom = 24.dp)
     ) {
-
         authorName?.also {
             Text(
-                text = it, color = ColorPrimary,
+                text = it, color = Color.LightGray,
             )
-
         }
-
         Spacer(modifier = Modifier.weight(1f))
-
         sourceName?.also {
             Text(
                 text = it,
-                color =ColorPrimary,
+                color = Color.LightGray,
             )
         }
     }
 }
 
 @Composable
-fun EmptySpaceComponent() {
-    Column(
+fun AuthorSourceTitleComponent(authorName: String?, sourceName: String?) {
+    Row(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .fillMaxWidth()
+            .padding(start = 10.dp, end = 10.dp, bottom = 5.dp)
     ) {
-        Image(painterResource(id = R.drawable.placeholder), contentDescription = null)
-    }
-    HeadingTextComponent(textValue = "No News Image now , Please check in sometime")
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-fun DemoSnackBar() {
-    val snackBarHostState = remember {
-        SnackbarHostState()
-    }
-    val coroutineScope = rememberCoroutineScope()
-    Scaffold(content = {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Button(onClick = {
-                coroutineScope.launch {
-
-                    val snackBarResult = snackBarHostState.showSnackbar(
-                        message = "Snackbar is here",
-                        actionLabel = "Undo",
-                        duration = SnackbarDuration.Short
-                    )
-                    when (snackBarResult) {
-                        SnackbarResult.ActionPerformed -> {
-                            Log.d("Snackbar", "Action Performed")
-                        }
-                        else -> {
-                            Log.d("Snackbar", "Snackbar dismissed")
-                        }
-                    }
-                }
-
-            }) {
-                Text(text = "Show Snack Bar", color = Color.White)
-            }
+        authorName?.also {
+            Text(
+                text = it, color = Color.LightGray,
+                fontSize = 12.sp,
+                fontStyle = FontStyle.Italic
+            )
         }
-    }, snackbarHost = { SnackbarHost(hostState = snackBarHostState) })
+        Spacer(modifier = Modifier.weight(1f))
+        sourceName?.also {
+            Text(
+                text = it,
+                color = Color.LightGray,
+                fontSize = 12.sp,
+                fontStyle = FontStyle.Italic
+            )
+        }
+    }
 }
-
 @Preview
 @Composable
 fun NewsRowComponentPreview() {
