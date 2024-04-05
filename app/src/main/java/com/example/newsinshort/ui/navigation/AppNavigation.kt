@@ -22,6 +22,8 @@ fun AppNavigationGraph(){
         val navContorller = rememberNavController()
         NavHost(navController = navContorller, startDestination =Routes.HOME_SCREEN ){
 
+
+
             composable(Routes.HOME_SCREEN) {
                 HomeScreen()
             }

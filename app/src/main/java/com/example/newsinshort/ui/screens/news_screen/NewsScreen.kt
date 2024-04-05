@@ -156,7 +156,6 @@ fun NewsArticleList(
         }
         if(state.error != null){
             RetryContent(error = state.error, onRetry = onRetry)
-            
         }
     }
 }
