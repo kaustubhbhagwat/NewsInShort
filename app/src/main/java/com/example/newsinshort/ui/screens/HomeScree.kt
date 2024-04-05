@@ -28,21 +28,27 @@ fun HomeScreen(
     val newsResponse by newsViewModel.news.collectAsState()
     var pageCount = 0
 
-        when (newsResponse) {
-            is ResourceState.Loading -> {
-                Loader()
-                Log.d(TAG, "Loading")
-            }
-            is ResourceState.Error -> {
-                val error = (newsResponse as ResourceState.Error)
-                Log.d(TAG, "$error")
-            }
-            is ResourceState.Success -> {
-                pageCount = (newsResponse as ResourceState.Success).data.articles.size
-            }
+    when (newsResponse) {
+        is ResourceState.Loading -> {
+            Loader()
+            Log.d(TAG, "Loading")
         }
 
-    val pagerState = rememberPagerState(pageCount = { pageCount }, initialPage = 0, initialPageOffsetFraction = 0f)
+        is ResourceState.Error -> {
+            val error = (newsResponse as ResourceState.Error)
+            Log.d(TAG, "$error")
+        }
+
+        is ResourceState.Success -> {
+            pageCount = (newsResponse as ResourceState.Success).data.articles.size
+        }
+    }
+
+    val pagerState = rememberPagerState(
+        pageCount = { pageCount },
+        initialPage = 0,
+        initialPageOffsetFraction = 0f
+    )
     VerticalPager(
         state = pagerState,
         modifier = Modifier
@@ -50,9 +56,9 @@ fun HomeScreen(
         pageSize = PageSize.Fill,
         pageSpacing = 8.dp
     ) { page ->
-                val response = (newsResponse as ResourceState.Success).data
-                if (response.articles.isNotEmpty() && page < response.articles.size) {
-                    NewsRowComponent(page, response.articles[page])
+        val response = (newsResponse as ResourceState.Success).data
+        if (response.articles.isNotEmpty() && page < response.articles.size) {
+            NewsRowComponent(page, response.articles[page])
         }
     }
 }
