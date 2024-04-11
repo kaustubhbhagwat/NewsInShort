@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.rememberNavController
 import com.example.newsinshort.ui.navigation.AppNavigationGraph
+import com.example.newsinshort.ui.navigation.NavGraphSetup
 import com.example.newsinshort.ui.theme.NewsInShortTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +20,9 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             NewsInShortTheme {
-                AppEntryPoint()
+                val navController = rememberNavController()
+                NavGraphSetup(navController = navController)
+//                AppEntryPoint()
             }
         }
     }

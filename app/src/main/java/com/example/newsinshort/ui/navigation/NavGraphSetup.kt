@@ -1,32 +1,46 @@
 package com.example.newsinshort.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.example.newsinshort.ui.screens.article_screen.ArticleScreen
 import com.example.newsinshort.ui.screens.news_screen.NewsScreen
+import com.example.newsinshort.ui.screens.news_screen.NewsScreenViewModel
 
 @Composable
-fun NavGraph(
+fun NavGraphSetup(
     navController: NavHostController
 ) {
-    val arg_key = "webUrl"
+    val argKey = "webUrl"
 
     NavHost(
         navController = navController,
-        startDestination = "news_Screen"
+        startDestination = "news_screen"
     ) {
-        composable(route = "news_screem"){
-
-            NewsScreen(state = vieModel.state,
+        composable(route = "news_screen"){
+            val viewModel: NewsScreenViewModel = hiltViewModel()
+            NewsScreen(state = viewModel.state,
                 onEvent = viewModel::onEvent,
-            ) {
-
-            }
+                onReadFullStoryButtonClick = { url ->
+                    navController.navigate("article_screen?$argKey=$url")
+                }
+            )
         }
 
+        composable(
+            route = "article_screen?$argKey={$argKey}",
+            arguments = listOf(navArgument(name = argKey) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            ArticleScreen(
+                url = backStackEntry.arguments?.getString(argKey),
+                onBackPressed = { navController.navigateUp() }
+            )
+        }
     }
-
 }

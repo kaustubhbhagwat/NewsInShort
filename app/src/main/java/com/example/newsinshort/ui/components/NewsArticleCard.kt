@@ -1,7 +1,6 @@
 package com.example.newsinshort.ui.components
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +19,6 @@ import com.example.newsinshort.data.entity.Article
 import com.example.newsinshort.utils.dateFormatter
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NewsArticleCard(
     modifier: Modifier = Modifier,
@@ -29,7 +27,7 @@ fun NewsArticleCard(
 ) {
     val date = dateFormatter(article.publishedAt)
 
-    Card(modifier = Modifier.padding(12.dp)) {
+    Card(modifier = modifier.padding(12.dp).clickable { onCardClicked(article) }) {
         Column(modifier = Modifier.padding(12.dp)) {
             ImageHolder(imageUrl = article.urlToImage)
             Spacer(modifier = Modifier.height(8.dp))

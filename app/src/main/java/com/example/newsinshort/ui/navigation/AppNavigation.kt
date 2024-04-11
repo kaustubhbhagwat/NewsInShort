@@ -9,7 +9,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.newsinshort.ui.screens.article_screen.ArticleScreen
 import com.example.newsinshort.ui.screens.home_screen.HomeScreen
-import com.example.newsinshort.ui.screens.news_screen.NewsScreen
 import com.example.newsinshort.ui.theme.DarkGray
 
 
@@ -21,9 +20,6 @@ fun AppNavigationGraph(){
     ){
         val navContorller = rememberNavController()
         NavHost(navController = navContorller, startDestination =Routes.HOME_SCREEN ){
-
-
-
             composable(Routes.HOME_SCREEN) {
                 HomeScreen()
             }
