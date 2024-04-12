@@ -2,9 +2,9 @@
 Kotlin-based Android news app helps users stay up-to-date on the latest headlines.
 
 **Features** :
-Display News in various categories
-Browse news
-Search News
+\nDisplay News in various categories \n
+\nBrowse news\n
+\nSearch News\n
 
 **Screenshots** :
 
