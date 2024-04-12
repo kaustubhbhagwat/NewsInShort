@@ -70,11 +70,9 @@ fun ArticleScreen(
                     loadUrl(url ?: " ")
                 }
             })
-
             if (isLoading) {
                 CircularProgressIndicator()
             }
-
         }
     }
 }

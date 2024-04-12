@@ -35,5 +35,8 @@ fun AppEntryPoint() {
 
 @Composable
 fun NewsInShortEntryPoint() {
-
+    NewsInShortTheme {
+        val navController = rememberNavController()
+        NavGraphSetup(navController = navController)
+    }
 }

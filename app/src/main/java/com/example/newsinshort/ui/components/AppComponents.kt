@@ -37,7 +37,6 @@ import coil.compose.AsyncImage
 import com.example.newsinshort.R
 import com.example.newsinshort.data.entity.Article
 import com.example.newsinshort.data.entity.Source
-import com.example.newsinshort.ui.theme.Purple40
 import com.example.newsinshort.ui.theme.ButtonColor
 
 
@@ -57,7 +56,7 @@ fun Loader() {
             Modifier
                 .size(60.dp)
                 .padding(10.dp),
-            color = Purple40
+            color = Color.Black
         )
     }
 }
@@ -75,7 +74,7 @@ fun NormalTextComponent(textValue: String) {
             fontSize = 18.sp,
             fontWeight = FontWeight.Normal,
             fontFamily = FontFamily.Monospace,
-            color = Purple40
+            color = Color.Black
         )
     )
 }

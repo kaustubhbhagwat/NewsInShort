@@ -57,7 +57,7 @@ fun NewsScreen(
     onEvent: (NewsScreenEvent) -> Unit,
     onReadFullStoryButtonClick: (String) -> Unit
 ) {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val pagerState = rememberPagerState(
         pageCount = { 50 },
         initialPage = 0,
@@ -109,7 +109,7 @@ fun NewsScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         Crossfade(targetState = state.isSearchBarVisible) { isVisible ->
             if (isVisible) {
-                Column {
+                Column(modifier = Modifier.background(Color.Black)) {
                     SearchAppBar(
                         modifier = Modifier.focusRequester(focusRequester),
                         value = state.searchQuery,
@@ -135,7 +135,8 @@ fun NewsScreen(
             } else {
                 Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                     topBar = {
-                        NewsScreenTopBar(scrollBehavior = scrollBehavior,
+                        NewsScreenTopBar(
+                            scrollBehavior = scrollBehavior,
                             onSearchIconClicked = {
                                 onEvent(NewsScreenEvent.onSearchIconClicked)
                                 coroutineScope.launch {
@@ -149,21 +150,20 @@ fun NewsScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(padding)
-                            .background(
-                                Color.Black)
+                            .padding(padding).background(Color.Black)
                     ) {
-                        CategoryTabRow(pagerState = pagerState, categories = categories,
+                        CategoryTabRow(
+                            pagerState = pagerState,
+                            categories = categories,
                             onTabSelected = { index ->
-                                coroutineScope.launch {
-                                    pagerState.animateScrollToPage(index)
-                                }
-                            })
-
+                                    coroutineScope.launch { pagerState.animateScrollToPage(index) }
+                            }
+                        )
                         HorizontalPager(
                             state = pagerState
                         ) {
-                            NewsArticleList(state = state,
+                            NewsArticleList(
+                                state = state,
                                 onCardClicked = { article ->
                                     shouldShowBottomSheet = true
                                     onEvent(NewsScreenEvent.onNewsCardClicked(article = article))

@@ -57,8 +57,8 @@ fun SearchAppBar(
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = { onSearchClicked() }),
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-            unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+            focusedContainerColor = Color.Black,
+            unfocusedContainerColor = Color.Black,
             cursorColor = Color.White,
             focusedIndicatorColor = Color.White
         )
