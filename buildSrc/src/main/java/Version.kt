@@ -8,7 +8,7 @@ object Version {
    const val composeUi = "1.6.4"
    const val composeUiGraphics = "1.6.4"
    const val composeUiToolingPreview = "1.6.4"
-   const val composeMaterial3 = "1.1.1"
+   const val composeMaterial3 = "1.1.0-rc01"
    const val navigationCompose = "2.7.7"
    const val composeUiTooling = "1.3.0"
    const val composeTestJunit4 = "1.6.4"

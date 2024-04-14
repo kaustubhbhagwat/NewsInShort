@@ -1,6 +1,9 @@
 package com.example.newsinshort.ui.screens.news_screen
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
+
+import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -58,11 +63,12 @@ fun NewsScreen(
     onReadFullStoryButtonClick: (String) -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    val pagerState = rememberPagerState(
+    val verticalPagerState = rememberPagerState(
         pageCount = { 50 },
         initialPage = 0,
         initialPageOffsetFraction = 0f
     )
+
     val coroutineScope = rememberCoroutineScope()
 
     val categories =
@@ -71,12 +77,17 @@ fun NewsScreen(
     val focusRequester = remember {
         FocusRequester()
     }
+    val horizontalPagerState = rememberPagerState(
+        pageCount = { categories.size },
+        initialPage = 0,
+        initialPageOffsetFraction = 0f
+    )
 
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    LaunchedEffect(key1 = pagerState) {
-        snapshotFlow { pagerState.currentPage }.collect { page ->
+    LaunchedEffect(key1 = horizontalPagerState) {
+        snapshotFlow { horizontalPagerState.currentPage }.collect { page ->
             onEvent(NewsScreenEvent.onCategoryChanged(category = categories[page]))
         }
     }
@@ -150,17 +161,19 @@ fun NewsScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(padding).background(Color.Black)
+                            .padding(padding)
+                            .background(Color.Black)
                     ) {
                         CategoryTabRow(
-                            pagerState = pagerState,
+                            pagerState = horizontalPagerState,
                             categories = categories,
                             onTabSelected = { index ->
-                                    coroutineScope.launch { pagerState.animateScrollToPage(index) }
+                                coroutineScope.launch { horizontalPagerState.animateScrollToPage(index) }
                             }
                         )
                         HorizontalPager(
-                            state = pagerState
+                            pageSize = PageSize.Fill,
+                            state = horizontalPagerState,
                         ) {
                             NewsArticleList(
                                 state = state,
@@ -197,6 +210,13 @@ fun NewsArticleList(
                 onCardClicked = onCardClicked
             )
         }
+    }
+    val animatable = remember {
+        Animatable(0.5f)
+    }
+    LaunchedEffect(key1 = true) {
+        animatable.animateTo(1f, tween(350, easing = FastOutSlowInEasing))
+        // you can tweak out and customize these animations.
     }
     Box(
         modifier = Modifier.fillMaxSize(),
