@@ -94,6 +94,7 @@ fun NewsScreen(
 
     if (shouldShowBottomSheet) {
         ModalBottomSheet(onDismissRequest = { shouldShowBottomSheet = false },
+            containerColor = Color.DarkGray,
             sheetState = stateSheet,
             content = {
                 state.selectedArticle?.let {

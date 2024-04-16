@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.newsinshort.data.entity.Article
@@ -24,24 +25,29 @@ fun BottomSheetContent(
     onReadFullStoryButtonClicked: () -> Unit
 ) {
     Surface(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
+        color = Color.DarkGray
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally,
+           ) {
             Text(
                 text = article.title,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                color = Color.White
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = article.description ?: "",
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.White
             )
             Spacer(modifier = Modifier.height(8.dp))
             ImageHolder(imageUrl = article.urlToImage)
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = article.content ?: "",
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.White
             )
             Spacer(modifier = Modifier.height(8.dp))
             Row(
@@ -51,12 +57,14 @@ fun BottomSheetContent(
                 Text(
                     text = article.author ?: "",
                     style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
                 )
                 Text(
                     text = article.source?.name ?: "",
                     style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
