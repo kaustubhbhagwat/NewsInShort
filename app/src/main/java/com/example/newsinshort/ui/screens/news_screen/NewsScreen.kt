@@ -151,7 +151,7 @@ fun NewsScreen(
                             onSearchIconClicked = {
                                 onEvent(NewsScreenEvent.onSearchIconClicked)
                                 coroutineScope.launch {
-                                    delay(500)
+//                                    delay(500)
                                     focusRequester.requestFocus()
                                 }
                             }
