@@ -48,7 +48,6 @@ import com.example.newsinshort.ui.components.NewsArticleCard
 import com.example.newsinshort.ui.components.NewsScreenTopBar
 import com.example.newsinshort.ui.components.RetryContent
 import com.example.newsinshort.ui.components.SearchAppBar
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -63,12 +62,6 @@ fun NewsScreen(
     onReadFullStoryButtonClick: (String) -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    val verticalPagerState = rememberPagerState(
-        pageCount = { 50 },
-        initialPage = 0,
-        initialPageOffsetFraction = 0f
-    )
-
     val coroutineScope = rememberCoroutineScope()
 
     val categories =
