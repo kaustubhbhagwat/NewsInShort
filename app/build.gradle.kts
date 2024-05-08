@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.dagger.hilt.android")
     kotlin("kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -62,6 +63,11 @@ dependencies {
     implementation(Dependencies.composeMaterial3)
     implementation(Dependencies.hiltAndroid)
     implementation(libs.androidx.junit.ktx)
+    implementation(libs.firebase.auth)
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation(libs.androidx.appcompat)
     kapt(Dependencies.hiltAndroidCompiler)
     kapt(Dependencies.hiltCompiler)
     testImplementation(libs.androidx.junit)
