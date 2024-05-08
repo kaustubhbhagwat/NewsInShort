@@ -48,6 +48,7 @@ import com.example.newsinshort.ui.components.NewsArticleCard
 import com.example.newsinshort.ui.components.NewsScreenTopBar
 import com.example.newsinshort.ui.components.RetryContent
 import com.example.newsinshort.ui.components.SearchAppBar
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -145,7 +146,7 @@ fun NewsScreen(
                             onSearchIconClicked = {
                                 onEvent(NewsScreenEvent.onSearchIconClicked)
                                 coroutineScope.launch {
-//                                    delay(500)
+                                    delay(500)
                                     focusRequester.requestFocus()
                                 }
                             }
