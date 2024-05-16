@@ -1,5 +1,6 @@
 package com.example.newsinshort.ui.navigation
 
+import BottomNavigationExample
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
@@ -19,7 +20,11 @@ fun AppNavigationGraph(){
         color = DarkGray
     ){
         val navContorller = rememberNavController()
-        NavHost(navController = navContorller, startDestination =Routes.HOME_SCREEN ){
+        NavHost(navController = navContorller, startDestination =Routes.MAIN_SCREEN ){
+            composable(Routes.MAIN_SCREEN){
+                BottomNavigationExample()
+            }
+
             composable(Routes.HOME_SCREEN) {
                 HomeScreen()
             }

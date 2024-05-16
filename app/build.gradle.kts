@@ -67,6 +67,8 @@ dependencies {
     // Import the BoM for the Firebase platform
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation ("androidx.compose.material:material:1.6.7")
+    //
     implementation(libs.androidx.appcompat)
     implementation(libs.firebase.messaging.ktx)
     implementation(libs.androidx.work.runtime.ktx)
