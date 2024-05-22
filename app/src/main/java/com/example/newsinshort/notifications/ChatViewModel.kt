@@ -6,6 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import okio.IOException
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
@@ -49,11 +51,20 @@ class ChatViewModel : ViewModel() {
                     body = state.messageText
                 )
             )
+            try {
+                if (isBroadcast) {
+                    api.broadcast(messageDto)
+                } else {
+                    api.sendMessage(messageDto)
+                }
+                state  = state.copy(
+                    messageText = ""
+                )
 
-            if (isBroadcast) {
-                api.broadcast(messageDto)
-            } else {
-                api.sendMessage(messageDto)
+            } catch (e: HttpException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
         }
     }

@@ -61,6 +61,7 @@ dependencies {
     implementation(Dependencies.composeUiGraphics)
     implementation(Dependencies.composeUiToolingPreview)
     implementation(Dependencies.composeMaterial3)
+    implementation(Dependencies.lifecycleViewModelKtx)
     implementation(Dependencies.hiltAndroid)
     implementation(libs.androidx.junit.ktx)
     implementation(libs.firebase.auth)
@@ -68,6 +69,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
     implementation ("androidx.compose.material:material:1.6.7")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+
     //
     implementation(libs.androidx.appcompat)
     implementation(libs.firebase.messaging.ktx)

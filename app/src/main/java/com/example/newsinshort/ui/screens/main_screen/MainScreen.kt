@@ -28,18 +28,19 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.newsinshort.R
+import com.example.newsinshort.notifications.ChatViewModel
 import com.example.newsinshort.ui.screens.home_screen.HomeScreen
 import com.example.newsinshort.ui.screens.news_screen.NewsScreen
 import com.example.newsinshort.ui.screens.news_screen.NewsScreenViewModel
 
 @Composable
 fun BottomNavigationExample() {
+
     val screens = listOf("Home", "Saved")
     var selectedScreen by remember { mutableStateOf(screens.first()) }
     val viewModel: NewsScreenViewModel = hiltViewModel()
     val navController = rememberNavController()
     val argKey = "webUrl"
-
 
 
     Scaffold(
@@ -70,6 +71,9 @@ fun BottomNavigationExample() {
                         onReadFullStoryButtonClick = { url ->
                             navController.navigate("article_screen?$argKey=$url")
                         })
+                }else if (selectedScreen == "Saved"){
+
+
                 }
             }
         }

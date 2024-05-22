@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
@@ -17,6 +18,9 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.example.newsinshort.NewsApplication.Companion.TAG
 import com.example.newsinshort.R
+import com.example.newsinshort.notifications.ChatScreen
+import com.example.newsinshort.notifications.ChatViewModel
+import com.example.newsinshort.notifications.EnterTokenDialog
 import com.example.newsinshort.ui.navigation.AppNavigationGraph
 import com.example.newsinshort.ui.navigation.NavGraphSetup
 import com.example.newsinshort.ui.theme.NewsInShortTheme
@@ -37,6 +41,7 @@ import kotlinx.coroutines.tasks.await
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val viewModel: ChatViewModel by viewModels()
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -54,12 +59,31 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
         logRegToken()
-
         setContent {
             NewsInShortTheme {
-                val navController = rememberNavController()
-                NavGraphSetup(navController = navController)
+//                val navController = rememberNavController()
+//                NavGraphSetup(navController = navController)
 //                AppEntryPoint()
+
+                // FCM code
+                val state = viewModel.state
+                if (state.isEnteringToken) {
+                    EnterTokenDialog(
+                        token = state.remoteToken, onTokenChange = viewModel::onRemoteTokenChanged,
+                        onSubmit = viewModel::onSubmitToken
+                    )
+                } else {
+                    ChatScreen(
+                        messageText = state.messageText,
+                        onMessageSend = {
+                            viewModel.sendMessage(isBroadcast = false)
+                        },
+                        onMessageBroadcast = {
+                            viewModel.sendMessage(isBroadcast = true)
+                        },
+                        onMessageChange = viewModel::onMessageChange
+                    )
+                }
             }
         }
     }
