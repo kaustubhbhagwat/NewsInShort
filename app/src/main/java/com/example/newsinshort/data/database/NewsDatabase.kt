@@ -4,7 +4,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.newsinshort.data.database.entities.SavedNews
-import org.junit.runner.manipulation.Ordering.Context
 
 @Database(entities = [SavedNews::class], version = 1)
 abstract class NewsDatabase : RoomDatabase() {
