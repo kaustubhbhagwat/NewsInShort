@@ -61,29 +61,29 @@ class MainActivity : ComponentActivity() {
         logRegToken()
         setContent {
             NewsInShortTheme {
-//                val navController = rememberNavController()
-//                NavGraphSetup(navController = navController)
-//                AppEntryPoint()
+                val navController = rememberNavController()
+                NavGraphSetup(navController = navController)
+                AppEntryPoint()
 
                 // FCM code
-                val state = viewModel.state
-                if (state.isEnteringToken) {
-                    EnterTokenDialog(
-                        token = state.remoteToken, onTokenChange = viewModel::onRemoteTokenChanged,
-                        onSubmit = viewModel::onSubmitToken
-                    )
-                } else {
-                    ChatScreen(
-                        messageText = state.messageText,
-                        onMessageSend = {
-                            viewModel.sendMessage(isBroadcast = false)
-                        },
-                        onMessageBroadcast = {
-                            viewModel.sendMessage(isBroadcast = true)
-                        },
-                        onMessageChange = viewModel::onMessageChange
-                    )
-                }
+//                val state = viewModel.state
+//                if (state.isEnteringToken) {
+//                    EnterTokenDialog(
+//                        token = state.remoteToken, onTokenChange = viewModel::onRemoteTokenChanged,
+//                        onSubmit = viewModel::onSubmitToken
+//                    )
+//                } else {
+//                    ChatScreen(
+//                        messageText = state.messageText,
+//                        onMessageSend = {
+//                            viewModel.sendMessage(isBroadcast = false)
+//                        },
+//                        onMessageBroadcast = {
+//                            viewModel.sendMessage(isBroadcast = true)
+//                        },
+//                        onMessageChange = viewModel::onMessageChange
+//                    )
+//                }
             }
         }
     }

@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.example.newsinshort.R
 
@@ -23,6 +24,8 @@ fun ImageHolder(
         model = ImageRequest
             .Builder(LocalContext.current)
             .data(imageUrl)
+            .networkCachePolicy(CachePolicy.ENABLED)
+            .diskCachePolicy(CachePolicy.ENABLED)
             .crossfade(true)
             .build(),
         contentDescription = "Image",
@@ -34,4 +37,5 @@ fun ImageHolder(
         placeholder = painterResource(R.drawable.placeholder),
         error = painterResource(R.drawable.placeholder)
     )
+
 }
