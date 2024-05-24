@@ -39,7 +39,7 @@ class AppModule {
             readTimeout(60, TimeUnit.SECONDS)
         }
 
-        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
         return Retrofit.Builder().baseUrl(AppConstants.APP_BASE_URL).client(httplClient.build())
             .addConverterFactory(MoshiConverterFactory.create(moshi)).build()

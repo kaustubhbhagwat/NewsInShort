@@ -4,6 +4,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     kotlin("kapt")
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -95,6 +96,9 @@ dependencies {
     implementation(Dependencies.coroutinesAndroid)
     implementation(Dependencies.splashScreen)
     implementation(Dependencies.coil)
+
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.1")
+
 }
 
 kapt{

@@ -5,7 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import okio.IOException
 import retrofit2.HttpException
 import retrofit2.Retrofit
@@ -22,6 +25,12 @@ class ChatViewModel : ViewModel() {
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
         .create()
+
+    init {
+        viewModelScope.launch {
+            Firebase.messaging.subscribeToTopic("News").await()
+        }
+    }
 
 
     fun onRemoteTokenChanged(newToken: String) {
