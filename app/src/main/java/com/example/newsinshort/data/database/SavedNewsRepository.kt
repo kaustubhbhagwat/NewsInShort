@@ -4,7 +4,7 @@ import androidx.annotation.WorkerThread
 import com.example.newsinshort.data.database.entities.SavedNews
 import kotlinx.coroutines.flow.Flow
 
-class NewsRepository (private val savedNewsDao: SavedNewsDao){
+class SavedNewsRepository (private val savedNewsDao: SavedNewsDao){
 
     @WorkerThread
     suspend fun insertSavedNews(news: SavedNews){
@@ -12,5 +12,4 @@ class NewsRepository (private val savedNewsDao: SavedNewsDao){
     }
 
     val savedNewsArticles: Flow<SavedNews> = savedNewsDao.getAllArticles()
-
 }
