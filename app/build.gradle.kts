@@ -5,6 +5,7 @@ plugins {
     kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.devtools.ksp")
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -98,6 +99,12 @@ dependencies {
     implementation(Dependencies.coil)
 
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.1")
+
+    implementation ("androidx.room:room-runtime:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+    testImplementation ("androidx.room:room-testing:2.6.1")
+    androidTestImplementation ("androidx.room:room-testing:2.6.1")
 
 }
 
