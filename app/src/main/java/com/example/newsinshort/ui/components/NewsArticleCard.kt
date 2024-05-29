@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.newsinshort.data.entity.Article
+import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.utils.dateFormatter
 
 

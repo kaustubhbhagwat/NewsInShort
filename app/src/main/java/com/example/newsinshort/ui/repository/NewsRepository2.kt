@@ -1,6 +1,6 @@
 package com.example.newsinshort.ui.repository
 
-import com.example.newsinshort.data.entity.Article
+import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.utils.Resource
 
 interface NewsRepository2 {

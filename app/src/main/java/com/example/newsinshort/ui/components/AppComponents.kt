@@ -35,8 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.newsinshort.R
-import com.example.newsinshort.data.entity.Article
-import com.example.newsinshort.data.entity.Source
+import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.ui.theme.ButtonColor
 
 
@@ -103,7 +102,7 @@ fun NewsRowComponent(page: Int, article: Article) {
                 error = painterResource(id = R.drawable.logo)
             )
             Spacer(modifier = Modifier.size(20.dp))
-            HeadingTextComponent(textValue = article.title ?: "")
+            HeadingTextComponent(textValue = article.title)
             Spacer(modifier = Modifier.size(10.dp))
             NormalTextComponent(textValue = article.description ?: "")
             Spacer(modifier = Modifier.size(20.dp))
@@ -214,24 +213,24 @@ fun AuthorSourceTitleComponent(authorName: String?, sourceName: String?) {
         }
     }
 }
-@Preview
-@Composable
-fun NewsRowComponentPreview() {
-    val article = Article(
-        author = "Kaustubh",
-        title = "Title",
-        "asdasd2iu3eoiasdkasdnkasnd asdojasd",
-        "null",
-        "https://img.freepik.com/free-vector/indian-flag-theme-independence-day-decorative-background-vector_1055-10866.jpg?w=1800&t=st=1711707331~exp=1711707931~hmac=78d732f7370925905e8160e19fdc89e51b865676a5613ea2b2ec8b46e47ef76c",
-        "null",
-        "null",
-        Source("1", "asdads"),
-    )
-    NewsRowComponent(
-        page = 0,
-        article = article
-    )
-}
+//@Preview
+//@Composable
+//fun NewsRowComponentPreview() {
+//    val article = Article(
+//        author = "Kaustubh",
+//        title = "Title",
+//        description = "asdasd2iu3eoiasdkasdnkasnd asdojasd",
+//        articleId = "null",
+//        urlToImage = "https://img.freepik.com/free-vector/indian-flag-theme-independence-day-decorative-background-vector_1055-10866.jpg?w=1800&t=st=1711707331~exp=1711707931~hmac=78d732f7370925905e8160e19fdc89e51b865676a5613ea2b2ec8b46e47ef76c",
+//        content = "null",
+//        publishedAt = "null",
+//        source = Source("1", "asdads"),
+//    )
+//    NewsRowComponent(
+//        page = 0,
+//        article = article
+//    )
+//}
 
 @Preview
 @Composable

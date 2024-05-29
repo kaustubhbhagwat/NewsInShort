@@ -1,5 +1,6 @@
 package com.example.newsinshort.ui.screens.news_screen
 
+import android.util.Log
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -41,7 +42,9 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
-import com.example.newsinshort.data.entity.Article
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.newsinshort.data.database.SavedNewsViewModel
+import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.ui.components.BottomSheetContent
 import com.example.newsinshort.ui.components.CategoryTabRow
 import com.example.newsinshort.ui.components.NewsArticleCard
@@ -64,6 +67,8 @@ fun NewsScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val coroutineScope = rememberCoroutineScope()
+
+
 
     val categories =
         listOf("General", "Business", "Technology", "Health", "Science", "Entertainment")
@@ -195,6 +200,8 @@ fun NewsArticleList(
     onCardClicked: (Article) -> Unit,
     onRetry: () -> Unit
 ) {
+    val savedNewsViewModel: SavedNewsViewModel = hiltViewModel()
+
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -204,6 +211,8 @@ fun NewsArticleList(
                 article = article,
                 onCardClicked = onCardClicked
             )
+            savedNewsViewModel.insert(article)
+            Log.d("DATA_LOG",savedNewsViewModel.getArticles.toString())
         }
     }
     val animatable = remember {

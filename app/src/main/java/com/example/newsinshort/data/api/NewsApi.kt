@@ -1,6 +1,6 @@
 package com.example.newsinshort.data.api
 
-import com.example.newsinshort.data.entity.NewsResponse
+import com.example.newsinshort.data.database.entities.SavedNews
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -12,13 +12,13 @@ interface NewsApi {
         @Query("category") category: String,
         @Query("country") country: String = "in",
         @Query("apiKey") apiKey: String = API_KEY
-    ): NewsResponse
+    ): SavedNews
 
     @GET("everything")
     suspend fun searchForNews(
         @Query("q") query: String,
         @Query("apiKey") apiKey: String = API_KEY
-    ): NewsResponse
+    ): SavedNews
 
     companion object {
         const val API_KEY = "f54f8fde71074804af445de8bc1a903c"

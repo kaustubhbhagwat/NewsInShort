@@ -1,8 +1,13 @@
 package com.example.newsinshort.di
 
+import android.content.Context
+import androidx.room.Room
 import com.example.newsinshort.data.AppConstants
 import com.example.newsinshort.data.api.ApiService
 import com.example.newsinshort.data.api.NewsApi
+import com.example.newsinshort.data.database.NewsDatabase
+import com.example.newsinshort.data.database.SavedNewsDao
+import com.example.newsinshort.data.database.SavedNewsRepository
 import com.example.newsinshort.data.datasource.NewsDataSource
 import com.example.newsinshort.data.datasource.NewsDataSourceImpl
 import com.example.newsinshort.ui.repository.NewsRepository
@@ -13,6 +18,7 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -47,20 +53,35 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesApiService(retrofit: Retrofit) : ApiService{
+    fun providesApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 
     @Provides
     @Singleton
-    fun providesNewsDataSource(apiService: ApiService) : NewsDataSource{
+    fun providesNewsDataSource(apiService: ApiService): NewsDataSource {
         return NewsDataSourceImpl(apiService)
     }
 
     @Provides
     @Singleton
-    fun providesNewsRepository(newsDataSource: NewsDataSource):  NewsRepository{
+    fun providesDatabase(@ApplicationContext app: Context) =
+        Room.databaseBuilder(app, NewsDatabase::class.java, "news_database").build()
+
+    @Provides
+    @Singleton
+    fun providesDao(db : NewsDatabase) = db.savedNewsDao()
+
+    @Provides
+    @Singleton
+    fun providesNewsRepository(newsDataSource: NewsDataSource): NewsRepository {
         return NewsRepository(newsDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun providesSavedNewsRepository(newsDao: SavedNewsDao): SavedNewsRepository {
+        return SavedNewsRepository(newsDao)
     }
 
     @Provides

@@ -1,9 +1,8 @@
 package com.example.newsinshort.data.datasource
 
-import com.example.newsinshort.data.entity.NewsResponse
+import com.example.newsinshort.data.database.entities.SavedNews
 import retrofit2.Response
-import retrofit2.http.Query
 
 interface NewsDataSource {
-   suspend fun getNewsHeadline(country: String): Response<NewsResponse>
+   suspend fun getNewsHeadline(country: String): Response<SavedNews>
 }

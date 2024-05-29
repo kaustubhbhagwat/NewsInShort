@@ -1,6 +1,7 @@
 package com.example.newsinshort.ui.screens.news_screen
 
-import com.example.newsinshort.data.entity.Article
+import com.example.newsinshort.data.database.entities.Article
+
 
 data class NewsState(
     val isLoading : Boolean = false,

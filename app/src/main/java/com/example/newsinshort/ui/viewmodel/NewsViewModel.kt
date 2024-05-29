@@ -3,7 +3,7 @@ package com.example.newsinshort.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsinshort.data.AppConstants
-import com.example.newsinshort.data.entity.NewsResponse
+import com.example.newsinshort.data.database.entities.SavedNews
 import com.example.newsinshort.ui.repository.NewsRepository
 import com.example.utilities.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,11 +19,11 @@ class NewsViewModel @Inject constructor(
     private val newsRepository: NewsRepository
 ) : ViewModel() {
     // MutableStateFLow can be assigned from the viewmodel itself
-    private val _news: MutableStateFlow<ResourceState<NewsResponse>> =
+    private val _news: MutableStateFlow<ResourceState<SavedNews>> =
         MutableStateFlow(ResourceState.Loading())
 
     //Stateflow is exposed to the UI , so UI cannot change the value
-    val news: StateFlow<ResourceState<NewsResponse>> = _news
+    val news: StateFlow<ResourceState<SavedNews>> = _news
 
     fun getNews(country: String) {
         viewModelScope.launch(Dispatchers.IO) {

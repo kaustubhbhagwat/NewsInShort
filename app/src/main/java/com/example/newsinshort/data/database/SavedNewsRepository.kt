@@ -1,15 +1,17 @@
 package com.example.newsinshort.data.database
 
 import androidx.annotation.WorkerThread
-import com.example.newsinshort.data.database.entities.SavedNews
+import com.example.newsinshort.data.database.entities.Article
+//import com.example.newsinshort.data.database.entities.SavedNews
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class SavedNewsRepository (private val savedNewsDao: SavedNewsDao){
+class SavedNewsRepository @Inject constructor(private val savedNewsDao: SavedNewsDao){
 
     @WorkerThread
-    suspend fun insertSavedNews(news: SavedNews){
-        savedNewsDao.insertSavedNews(news)
+    suspend fun insertSavedNews(article: Article){
+        savedNewsDao.insertSavedNews(article)
     }
 
-    val savedNewsArticles: Flow<SavedNews> = savedNewsDao.getAllArticles()
+    val savedNewsArticles: Flow<List<Article>> = savedNewsDao.getAllArticles()
 }

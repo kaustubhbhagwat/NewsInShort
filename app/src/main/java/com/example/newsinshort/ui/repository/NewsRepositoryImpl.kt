@@ -2,7 +2,7 @@ package com.example.newsinshort.ui.repository
 
 import android.util.Log
 import com.example.newsinshort.data.api.NewsApi
-import com.example.newsinshort.data.entity.Article
+import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.utils.Resource
 import java.lang.Exception
 
