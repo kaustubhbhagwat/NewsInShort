@@ -11,8 +11,6 @@ import androidx.navigation.NavController
 fun SavedNewsScreen(
     navController: NavController
 ) {
-
     Surface(color = Color.White, modifier = Modifier.fillMaxSize()) {
-
     }
 }
