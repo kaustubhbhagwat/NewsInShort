@@ -43,6 +43,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.newsinshort.data.database.SavedNewsViewModel
 import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.ui.components.BottomSheetContent
@@ -67,8 +68,6 @@ fun NewsScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val coroutineScope = rememberCoroutineScope()
-
-
 
     val categories =
         listOf("General", "Business", "Technology", "Health", "Science", "Entertainment")

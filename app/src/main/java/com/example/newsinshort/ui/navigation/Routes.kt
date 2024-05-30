@@ -4,5 +4,5 @@ object Routes {
 
     const val HOME_SCREEN = "Home"
     const val ARTICLE_SCREEN = "ArticleScreen"
-    const val MAIN_SCREEN = "MainScreen"
+//    const val MAIN_SCREEN = "MainScreen"
 }

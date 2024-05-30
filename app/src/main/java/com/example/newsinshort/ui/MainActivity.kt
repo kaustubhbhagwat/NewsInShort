@@ -21,7 +21,7 @@ import com.example.newsinshort.R
 import com.example.newsinshort.notifications.ChatScreen
 import com.example.newsinshort.notifications.ChatViewModel
 import com.example.newsinshort.notifications.EnterTokenDialog
-import com.example.newsinshort.ui.navigation.AppNavigationGraph
+//import com.example.newsinshort.ui.navigation.AppNavigationGraph
 import com.example.newsinshort.ui.navigation.NavGraphSetup
 import com.example.newsinshort.ui.theme.NewsInShortTheme
 import com.google.android.gms.tasks.OnCompleteListener
@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
             NewsInShortTheme {
                 val navController = rememberNavController()
                 NavGraphSetup(navController = navController)
-                AppEntryPoint()
+//                AppEntryPoint()
 
                 // FCM code
 //                val state = viewModel.state
@@ -128,7 +128,7 @@ private suspend fun getAndStoreRegToken(): String {
 
 @Composable
 fun AppEntryPoint() {
-    AppNavigationGraph()
+//    AppNavigationGraph()
 }
 
 @Composable

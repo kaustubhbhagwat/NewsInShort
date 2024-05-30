@@ -33,61 +33,61 @@ import com.example.newsinshort.ui.screens.home_screen.HomeScreen
 import com.example.newsinshort.ui.screens.news_screen.NewsScreen
 import com.example.newsinshort.ui.screens.news_screen.NewsScreenViewModel
 
-@Composable
-fun BottomNavigationExample() {
+//@Composable
+//fun BottomNavigationExample() {
+//
+////    val screens = listOf("Home")
+////    var selectedScreen by remember { mutableStateOf(screens.first()) }
+//    val viewModel: NewsScreenViewModel = hiltViewModel()
+//    val navController = rememberNavController()
+//    val argKey = "webUrl"
+//
+//
+//    Scaffold(
+//        bottomBar = {
+//            BottomNavigation {
+//                screens.forEach { screen ->
+//                    BottomNavigationItem(
+//                        icon = { Icon(getIconForScreen(screen), contentDescription = screen) },
+//                        label = { Text(screen, color = Color.White) },
+//                        selected = screen == selectedScreen,
+//                        onClick = { selectedScreen = screen },
+//                        modifier = Modifier.background(Color.Black)
+//                    )
+//                }
+//            }
+//        },
+//        content = { padding ->
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(padding),
+//                verticalArrangement = Arrangement.Center,
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//                if (selectedScreen == "Home") {
+//                    NewsScreen(state = viewModel.state,
+//                        onEvent = viewModel::onEvent,
+//                        onReadFullStoryButtonClick = { url ->
+//                            navController.navigate("article_screen?$argKey=$url")
+//                        })
+//                } else if (selectedScreen == "Saved") {
+//
+//
+//                }
+//            }
+//        }
+//    )
+//}
 
-    val screens = listOf("Home", "Saved")
-    var selectedScreen by remember { mutableStateOf(screens.first()) }
-    val viewModel: NewsScreenViewModel = hiltViewModel()
-    val navController = rememberNavController()
-    val argKey = "webUrl"
-
-
-    Scaffold(
-        bottomBar = {
-            BottomNavigation {
-                screens.forEach { screen ->
-                    BottomNavigationItem(
-                        icon = { Icon(getIconForScreen(screen), contentDescription = screen) },
-                        label = { Text(screen , color = Color.White) },
-                        selected = screen == selectedScreen,
-                        onClick = { selectedScreen = screen },
-                        modifier = Modifier.background(Color.Black)
-                    )
-                }
-            }
-        },
-        content = { padding->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                if(selectedScreen == "Home"){
-                    NewsScreen(state = viewModel.state,
-                        onEvent = viewModel::onEvent,
-                        onReadFullStoryButtonClick = { url ->
-                            navController.navigate("article_screen?$argKey=$url")
-                        })
-                }else if (selectedScreen == "Saved"){
-
-
-                }
-            }
-        }
-    )
-}
-
-@Composable
-fun getIconForScreen(screen: String): ImageVector {
-    return when (screen) {
-        "Home" -> Icons.Default.Home
-        "Saved" -> Icons.Default.Favorite
-        "Post" -> Icons.Default.Add
-//        "Alert" -> Icons.Default.Notifications
-//        "Jobs" -> Icons.Default.Done
-        else -> Icons.Default.Home
-    }
-}
+//@Composable
+//fun getIconForScreen(screen: String): ImageVector {
+//    return when (screen) {
+//        "Home" -> Icons.Default.Home
+////        "Saved" -> Icons.Default.Favorite
+////        "Post" -> Icons.Default.Add
+////        "Alert" -> Icons.Default.Notifications
+////        "Jobs" -> Icons.Default.Done
+//        else -> Icons.Default.Home
+//    }
+//}
