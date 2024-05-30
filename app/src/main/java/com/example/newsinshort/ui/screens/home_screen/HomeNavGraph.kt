@@ -5,10 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.newsinshort.ui.Graph
 import com.example.newsinshort.ui.screens.SearchNewsScreen
+import com.example.newsinshort.ui.screens.article_screen.ArticleScreen
 import com.example.newsinshort.ui.screens.breaking_news.BreakingNewsScreen
 import com.example.newsinshort.ui.screens.news_screen.NewsScreenViewModel
 import com.example.newsinshort.ui.screens.saved_screen.SavedNewsScreen
@@ -41,6 +44,19 @@ fun HomeNavGraph(navController: NavHostController) {
 
         composable(route = BottomBarScreen.SearchNews.route){
             SearchNewsScreen(navController = navController)
+        }
+
+
+        composable(
+            route = "article_screen?$argKey={$argKey}",
+            arguments = listOf(navArgument(name = argKey) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            ArticleScreen(
+                url = backStackEntry.arguments?.getString(argKey),
+                onBackPressed = { navController.navigateUp() }
+            )
         }
 
     }
