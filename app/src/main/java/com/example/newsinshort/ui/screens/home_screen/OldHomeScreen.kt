@@ -24,7 +24,7 @@ const val TAG = "HOMESCREEN"
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(
+fun OldHomeScreen(
     newsViewModel: NewsViewModel = hiltViewModel()
 ) {
     val newsResponse by newsViewModel.news.collectAsState()
@@ -68,5 +68,5 @@ fun HomeScreen(
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    OldHomeScreen()
 }

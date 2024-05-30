@@ -15,6 +15,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.newsinshort.NewsApplication.Companion.TAG
 import com.example.newsinshort.R
@@ -23,6 +26,7 @@ import com.example.newsinshort.notifications.ChatViewModel
 import com.example.newsinshort.notifications.EnterTokenDialog
 //import com.example.newsinshort.ui.navigation.AppNavigationGraph
 import com.example.newsinshort.ui.navigation.NavGraphSetup
+import com.example.newsinshort.ui.screens.home_screen.HomeScreen
 import com.example.newsinshort.ui.theme.NewsInShortTheme
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Firebase
@@ -61,9 +65,11 @@ class MainActivity : ComponentActivity() {
         logRegToken()
         setContent {
             NewsInShortTheme {
-                val navController = rememberNavController()
-                NavGraphSetup(navController = navController)
+//                val navController = rememberNavController()
+//                NavGraphSetup(navController = navController)
+                RootNavigationGraph(navController = rememberNavController())
 //                AppEntryPoint()
+
 
                 // FCM code
 //                val state = viewModel.state
@@ -89,6 +95,26 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+@Composable
+fun RootNavigationGraph(navController: NavHostController) {
+    NavHost(
+        navController = navController,
+        route = Graph.ROOT,
+        startDestination = Graph.HOME
+    ) {
+        composable(route = Graph.HOME) {
+            HomeScreen()
+        }
+    }
+}
+
+
+object Graph {
+    const val ROOT = "root_graph"
+    const val HOME = "home_graph"
+    const val DETAILS = "details_graph"
+}
 
 fun logRegToken() {
     // [START log_reg_token]
