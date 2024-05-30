@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import com.example.newsinshort.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,7 +25,7 @@ fun NewsScreenTopBar(
 ) {
     TopAppBar(
         scrollBehavior = scrollBehavior,
-        title = { Text(text = "Newsroom", fontWeight = FontWeight.Bold)},
+        title = { Text(text = "Flash Feed", fontWeight = FontWeight.Bold)},
         actions = {
             IconButton(onClick = onSearchIconClicked) {
                 Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
