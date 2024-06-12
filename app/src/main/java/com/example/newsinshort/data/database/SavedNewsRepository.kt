@@ -1,6 +1,7 @@
 package com.example.newsinshort.data.database
 
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import com.example.newsinshort.data.database.entities.Article
 //import com.example.newsinshort.data.database.entities.SavedNews
 import kotlinx.coroutines.flow.Flow
@@ -13,5 +14,7 @@ class SavedNewsRepository @Inject constructor(private val savedNewsDao: SavedNew
         savedNewsDao.insertSavedNews(article)
     }
 
-    val savedNewsArticles: Flow<List<Article>> = savedNewsDao.getAllArticles()
+    fun getSavedNews(): LiveData<List<Article>>{
+        return savedNewsDao.getAllArticles()
+    }
 }

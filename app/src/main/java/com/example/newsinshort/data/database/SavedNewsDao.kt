@@ -1,5 +1,6 @@
 package com.example.newsinshort.data.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -12,7 +13,7 @@ interface SavedNewsDao {
     @Insert
     suspend fun insertSavedNews(article: Article)
 
-
     @Query("SELECT * FROM article ")
-    fun getAllArticles(): Flow<List<Article>>
+    fun getAllArticles(): LiveData<List<Article>>
+
 }

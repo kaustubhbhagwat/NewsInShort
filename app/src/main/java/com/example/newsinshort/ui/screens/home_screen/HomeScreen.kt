@@ -78,13 +78,13 @@ fun BottomNavigation(navController: NavHostController) {
             hasNews = false
         ),
         BottomNavigationItem(
-            title = "Breaking News",
+            title = "Saved",
             selectedIcon = ImageVector.vectorResource(id = R.drawable.ic_favorite),
             unSelectedIcon = ImageVector.vectorResource(id = R.drawable.ic_favorite),
             hasNews = false
         ),
         BottomNavigationItem(
-            title = "Breaking News",
+            title = "Search",
             selectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
             unSelectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
             hasNews = false

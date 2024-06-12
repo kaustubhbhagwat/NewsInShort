@@ -211,7 +211,6 @@ fun NewsArticleList(
                 onCardClicked = onCardClicked
             )
             savedNewsViewModel.insert(article)
-            Log.d("DATA_LOG",savedNewsViewModel.getArticles.toString())
         }
     }
     val animatable = remember {
