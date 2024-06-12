@@ -18,6 +18,7 @@ fun BreakingNewsScreen(
 
     Surface(modifier = Modifier.fillMaxSize()) {
         NewsScreen(
+            navController,
             state = viewModel.state,
             onEvent = viewModel::onEvent,
             onReadFullStoryButtonClick = { url ->

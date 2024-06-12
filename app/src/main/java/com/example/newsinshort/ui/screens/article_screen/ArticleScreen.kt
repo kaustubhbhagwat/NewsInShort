@@ -40,13 +40,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat.startActivity
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.newsinshort.R
+import com.example.newsinshort.data.database.SavedNewsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArticleScreen(
     url: String?,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    savedNewsViewModel : SavedNewsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     var isLoading by remember { mutableStateOf(true) }
@@ -73,7 +76,6 @@ fun ArticleScreen(
             Share(text = url.toString(), context = LocalContext.current)
 //            FloatingActionButton(
 //                onClick = {
-////                    viewModel.saveArticle(article)
 ////                    Log.d("WebViewScreen", "WebViewScreen: CLICKED HERE")
 //                },
 //                modifier = Modifier.size(50.dp)

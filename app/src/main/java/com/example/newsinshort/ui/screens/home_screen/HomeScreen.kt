@@ -82,13 +82,14 @@ fun BottomNavigation(navController: NavHostController) {
             selectedIcon = ImageVector.vectorResource(id = R.drawable.ic_favorite),
             unSelectedIcon = ImageVector.vectorResource(id = R.drawable.ic_favorite),
             hasNews = false
-        ),
-        BottomNavigationItem(
-            title = "Search",
-            selectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
-            unSelectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
-            hasNews = false
-        ),
+        )
+//        ,
+//        BottomNavigationItem(
+//            title = "Search",
+//            selectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
+//            unSelectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
+//            hasNews = false
+//        ),
     )
 
     val screens =

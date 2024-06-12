@@ -1,12 +1,12 @@
 package com.example.newsinshort.ui.screens.news_screen
 
-import android.util.Log
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,7 +43,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavController
 import com.example.newsinshort.data.database.SavedNewsViewModel
 import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.ui.components.BottomSheetContent
@@ -52,8 +52,11 @@ import com.example.newsinshort.ui.components.NewsArticleCard
 import com.example.newsinshort.ui.components.NewsScreenTopBar
 import com.example.newsinshort.ui.components.RetryContent
 import com.example.newsinshort.ui.components.SearchAppBar
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.net.URLEncoder
 
 
 @OptIn(
@@ -62,6 +65,7 @@ import kotlinx.coroutines.launch
 )
 @Composable
 fun NewsScreen(
+    navController: NavController,
     state: NewsState,
     onEvent: (NewsScreenEvent) -> Unit,
     onReadFullStoryButtonClick: (String) -> Unit
@@ -83,6 +87,8 @@ fun NewsScreen(
 
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    val savedNewsViewModel : SavedNewsViewModel = hiltViewModel()
 
     LaunchedEffect(key1 = horizontalPagerState) {
         snapshotFlow { horizontalPagerState.currentPage }.collect { page ->
@@ -133,8 +139,8 @@ fun NewsScreen(
                         }
                     )
                     NewsArticleList(
-                        state = state,
-                        onCardClicked = { article ->
+                        navController = navController,
+                        state = state, onCardClicked = { article ->
                             shouldShowBottomSheet = true
                             onEvent(NewsScreenEvent.onNewsCardClicked(article = article))
                         }, onRetry = {
@@ -175,6 +181,7 @@ fun NewsScreen(
                             state = horizontalPagerState,
                         ) {
                             NewsArticleList(
+                                navController,
                                 state = state,
                                 onCardClicked = { article ->
                                     shouldShowBottomSheet = true
@@ -195,6 +202,7 @@ fun NewsScreen(
 
 @Composable
 fun NewsArticleList(
+    navController: NavController,
     state: NewsState,
     onCardClicked: (Article) -> Unit,
     onRetry: () -> Unit
@@ -220,8 +228,19 @@ fun NewsArticleList(
         animatable.animateTo(1f, tween(350, easing = FastOutSlowInEasing))
         // you can tweak out and customize these animations.
     }
+    val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+    val jsonAdapter = moshi.adapter(Article::class.java).lenient()
+    val currentArticle = jsonAdapter.toJson(state.selectedArticle)
+
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .clickable {
+                val encodedUrl = URLEncoder.encode(currentArticle, "utf-8")
+                navController.navigate("saved_news/$encodedUrl")
+                state.selectedArticle?.let { savedNewsViewModel.insert(it) }
+
+            },
         contentAlignment = Alignment.Center
     ) {
         if (state.isLoading) {

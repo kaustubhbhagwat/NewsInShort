@@ -104,7 +104,7 @@ fun RootNavigationGraph(navController: NavHostController) {
         startDestination = Graph.HOME
     ) {
         composable(route = Graph.HOME) {
-            HomeScreen()
+            HomeScreen(rememberNavController())
         }
     }
 }
