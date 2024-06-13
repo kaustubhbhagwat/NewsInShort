@@ -46,6 +46,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.newsinshort.data.database.SavedNewsViewModel
 import com.example.newsinshort.data.database.entities.Article
+import com.example.newsinshort.data.database.model.SavedArticle
+import com.example.newsinshort.data.database.model.Source
 import com.example.newsinshort.ui.components.BottomSheetContent
 import com.example.newsinshort.ui.components.CategoryTabRow
 import com.example.newsinshort.ui.components.NewsArticleCard
@@ -88,7 +90,7 @@ fun NewsScreen(
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val savedNewsViewModel : SavedNewsViewModel = hiltViewModel()
+    val savedNewsViewModel: SavedNewsViewModel = hiltViewModel()
 
     LaunchedEffect(key1 = horizontalPagerState) {
         snapshotFlow { horizontalPagerState.currentPage }.collect { page ->
@@ -103,15 +105,29 @@ fun NewsScreen(
     val stateSheet = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var shouldShowBottomSheet by remember { mutableStateOf(false) }
 
+
     if (shouldShowBottomSheet) {
         ModalBottomSheet(onDismissRequest = { shouldShowBottomSheet = false },
             containerColor = Color.DarkGray,
             sheetState = stateSheet,
             content = {
                 state.selectedArticle?.let {
+
+                    val savedArticle = SavedArticle(
+                        title = it.title,
+                        author = it.author,
+                        description = it.description,
+                        content = it.content,
+                        publishedAt = it.publishedAt,
+                        source = Source(name = it.source?.name.toString(), id = it.source?.id.toString()),
+                        url = it.url,
+                        urlToImage = it.urlToImage,
+                    )
+
                     BottomSheetContent(
                         article = it,
                         onReadFullStoryButtonClicked = {
+                            savedNewsViewModel.saveNews(savedArticle)
                             onReadFullStoryButtonClick(it.url)
                             coroutineScope.launch { stateSheet.hide() }.invokeOnCompletion {
                                 if (!stateSheet.isVisible) shouldShowBottomSheet = false
@@ -173,7 +189,11 @@ fun NewsScreen(
                             pagerState = horizontalPagerState,
                             categories = categories,
                             onTabSelected = { index ->
-                                coroutineScope.launch { horizontalPagerState.animateScrollToPage(index) }
+                                coroutineScope.launch {
+                                    horizontalPagerState.animateScrollToPage(
+                                        index
+                                    )
+                                }
                             }
                         )
                         HorizontalPager(
@@ -207,8 +227,6 @@ fun NewsArticleList(
     onCardClicked: (Article) -> Unit,
     onRetry: () -> Unit
 ) {
-    val savedNewsViewModel: SavedNewsViewModel = hiltViewModel()
-
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
