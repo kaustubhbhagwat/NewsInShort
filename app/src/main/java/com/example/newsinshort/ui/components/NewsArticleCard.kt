@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -33,18 +30,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.compose.SubcomposeAsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.size.Precision
 import coil.size.Scale
-import coil.size.Size
-import coil.size.ViewSizeResolver
-import coil.transform.CircleCropTransformation
 import com.example.newsinshort.R
 import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.utils.dateFormatter
-
 
 @Composable
 fun NewsArticleCard(
@@ -74,13 +66,6 @@ fun NewsArticleCard(
             }
             .clickable { onCardClicked(article) }) {
 //        ImageHolder(imageUrl = article.urlToImage)
-//        SubcomposeAsyncImage(
-//            model = article.urlToImage,
-//            loading = {
-//                CircularProgressIndicator()
-//            },
-//            contentDescription = stringResource(R.string.image_description)
-//        )
         if (article.urlToImage != null) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)

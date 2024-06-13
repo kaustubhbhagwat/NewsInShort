@@ -218,7 +218,6 @@ fun NewsArticleList(
                 article = article,
                 onCardClicked = onCardClicked
             )
-            savedNewsViewModel.insert(article)
         }
     }
     val animatable = remember {
@@ -238,8 +237,6 @@ fun NewsArticleList(
             .clickable {
                 val encodedUrl = URLEncoder.encode(currentArticle, "utf-8")
                 navController.navigate("saved_news/$encodedUrl")
-                state.selectedArticle?.let { savedNewsViewModel.insert(it) }
-
             },
         contentAlignment = Alignment.Center
     ) {

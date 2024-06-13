@@ -4,11 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-//@Entity(
-//    tableName = "articles"
-//)
+@Entity(
+    tableName = "articles"
+)
 
-data class Articles(
+data class SavedArticle(
     val author: String?,
     val content: String?,
     val description: String?,

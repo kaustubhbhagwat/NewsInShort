@@ -9,7 +9,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.newsinshort.data.database.entities.Article
+import com.example.newsinshort.data.database.model.SavedArticle
 import com.example.newsinshort.ui.Graph
 import com.example.newsinshort.ui.components.WebViewScreen
 import com.example.newsinshort.ui.screens.SearchNewsScreen
@@ -73,7 +73,7 @@ fun HomeNavGraph(navController: NavHostController) {
         ) { backStackEntry ->
             val articleJson = backStackEntry.arguments?.getString("article")
             val moshi = Moshi.Builder().build()
-            val jsonAdapter = moshi.adapter(Article::class.java).lenient()
+            val jsonAdapter = moshi.adapter(SavedArticle::class.java).lenient()
             val currentArticle = jsonAdapter.fromJson(articleJson)
 
             // WebViewScreen(url = "https://www.google.com")

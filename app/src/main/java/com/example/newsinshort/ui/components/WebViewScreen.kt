@@ -24,14 +24,12 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.newsinshort.R
 import com.example.newsinshort.data.database.SavedNewsViewModel
-import com.example.newsinshort.data.database.entities.Article
-import com.example.newsinshort.ui.viewmodel.NewsViewModel
-
+import com.example.newsinshort.data.database.model.SavedArticle
 
 @SuppressLint("SetJavaScriptEnabled", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun WebViewScreen(
-    article: Article,
+    article: SavedArticle,
     viewModel: SavedNewsViewModel = hiltViewModel()
 ){
 
@@ -83,11 +81,9 @@ fun WebViewScreen(
                 //  it.loadUrl(url)
             })
 
-
         BackHandler(enabled = backEnabled) {
             webView?.goBack()
         }
 
     }
-
 }

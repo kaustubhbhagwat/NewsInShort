@@ -1,6 +1,6 @@
 package com.example.newsinshort.ui.repository
 
-import com.example.newsinshort.data.database.entities.SavedNews
+import com.example.newsinshort.data.database.entities.NewsResponse
 import com.example.newsinshort.data.datasource.NewsDataSource
 import com.example.utilities.ResourceState
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class NewsRepository @Inject constructor(
     private val newsDataSource: NewsDataSource
 ){
-    suspend fun getNewsHeadline(country: String): Flow<ResourceState<SavedNews>> {
+    suspend fun getNewsHeadline(country: String): Flow<ResourceState<NewsResponse>> {
         return flow {
             emit(ResourceState.Loading())
 
