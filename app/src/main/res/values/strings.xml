@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FlashFeed</string>
     <string name="your_web_client_id">912497727988-bvnnkvk4om73n89clm72csvhl8vlc7lm.apps.googleusercontent.com</string>
+    <string name="image_description">Image\n</string>
 </resources>
