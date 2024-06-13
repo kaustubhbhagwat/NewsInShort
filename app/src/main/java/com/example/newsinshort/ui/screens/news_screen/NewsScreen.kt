@@ -2,11 +2,10 @@ package com.example.newsinshort.ui.screens.news_screen
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -239,23 +238,16 @@ fun NewsArticleList(
         }
     }
     val animatable = remember {
-        Animatable(0.5f)
+        Animatable(0.2f)
     }
     LaunchedEffect(key1 = true) {
-        animatable.animateTo(1f, tween(350, easing = FastOutSlowInEasing))
+        animatable.animateTo(0.5f, tween(100, easing = LinearEasing))
         // you can tweak out and customize these animations.
     }
-    val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-    val jsonAdapter = moshi.adapter(Article::class.java).lenient()
-    val currentArticle = jsonAdapter.toJson(state.selectedArticle)
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .clickable {
-                val encodedUrl = URLEncoder.encode(currentArticle, "utf-8")
-                navController.navigate("saved_news/$encodedUrl")
-            },
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         if (state.isLoading) {
