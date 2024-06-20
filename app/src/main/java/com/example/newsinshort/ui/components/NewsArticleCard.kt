@@ -25,6 +25,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -51,6 +52,9 @@ import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.data.database.model.SavedArticle
 import com.example.newsinshort.data.database.model.Source
 import com.example.newsinshort.utils.dateFormatter
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun NewsArticleCard(
@@ -59,6 +63,8 @@ fun NewsArticleCard(
     val savedNewsViewModel: SavedNewsViewModel = hiltViewModel()
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
+    val coroutineScope = rememberCoroutineScope()
+
 
 
 
@@ -163,6 +169,13 @@ fun NewsArticleCard(
                                     )
                                 }
                                 savedNewsViewModel.saveNews(savedArticle)
+
+                                coroutineScope.launch {
+                                    val ifExist1 = savedNewsViewModel.isRowExist(savedArticle.url).start()
+                                    val ifExist2 = savedNewsViewModel.isRowExist(savedArticle.url).start()
+                                }
+
+
 //                                savedNewsViewModel.allSavedNews.observe(lifecycleOwner) {
 //                                    it.forEachIndexed { index, newArticle ->
 //                                        if (savedArticle.url == it[index].url) {

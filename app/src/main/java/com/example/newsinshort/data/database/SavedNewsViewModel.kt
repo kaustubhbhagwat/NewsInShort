@@ -15,6 +15,12 @@ class SavedNewsViewModel @Inject constructor (private val savedNewsRepository: S
 
     val allSavedNews: LiveData<List<SavedArticle>> = savedNewsRepository.allSavedNews.asLiveData()
 
+//    val isRowExist: LiveData<Boolean> = savedNewsRepository.isRowExist("url").asLiveData()
+
+    fun isRowExist(url: String) = viewModelScope.launch {
+        savedNewsRepository.isRowExist(url)
+    }
+
     fun insert(article: SavedArticle) = viewModelScope.launch{
         savedNewsRepository.insertSavedNews(article)
     }
