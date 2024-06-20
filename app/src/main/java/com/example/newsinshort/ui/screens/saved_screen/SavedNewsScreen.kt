@@ -11,6 +11,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -24,11 +25,8 @@ fun SavedNewsScreen(
     navController: NavController,
     savedNewsViewModel: SavedNewsViewModel = hiltViewModel()
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
     var list: List<SavedArticle>
-    savedNewsViewModel.allSavedNews.observeForever {
-        it.size
-        list = it
-    }
     Surface(color = Color.Black, modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             contentPadding = PaddingValues(16.dp),

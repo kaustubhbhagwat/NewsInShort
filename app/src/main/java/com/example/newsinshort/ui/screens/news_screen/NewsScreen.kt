@@ -111,22 +111,9 @@ fun NewsScreen(
             sheetState = stateSheet,
             content = {
                 state.selectedArticle?.let {
-
-                    val savedArticle = SavedArticle(
-                        title = it.title,
-                        author = it.author,
-                        description = it.description,
-                        content = it.content,
-                        publishedAt = it.publishedAt,
-                        source = Source(name = it.source?.name.toString(), id = it.source?.id.toString()),
-                        url = it.url,
-                        urlToImage = it.urlToImage,
-                    )
-
                     BottomSheetContent(
                         article = it,
                         onReadFullStoryButtonClicked = {
-                            savedNewsViewModel.saveNews(savedArticle)
                             onReadFullStoryButtonClick(it.url)
                             coroutineScope.launch { stateSheet.hide() }.invokeOnCompletion {
                                 if (!stateSheet.isVisible) shouldShowBottomSheet = false
@@ -228,7 +215,7 @@ fun NewsArticleList(
 ) {
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(state.articles) { article ->
             NewsArticleCard(

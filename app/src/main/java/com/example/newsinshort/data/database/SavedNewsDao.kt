@@ -17,4 +17,7 @@ interface SavedNewsDao {
     @Query("SELECT * FROM ARTICLES ORDER BY ID")
     fun getAllArticles(): Flow<List<SavedArticle>>
 
+    @Query("SELECT EXISTS(SELECT * FROM ARTICLES WHERE url = :url)")
+    fun isRowIsExist(url : String) : Boolean
+
 }
