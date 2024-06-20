@@ -95,7 +95,6 @@ fun BottomNavigation(navController: NavHostController) {
     val screens =
         listOf(BottomBarScreen.BreakingNews, BottomBarScreen.SavedNews, BottomBarScreen.SearchNews)
 
-
     var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()

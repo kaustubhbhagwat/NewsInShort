@@ -25,7 +25,7 @@ fun BottomSheetContent(
     onReadFullStoryButtonClicked: () -> Unit
 ) {
     Surface(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(8.dp),
         color = Color.DarkGray
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,9 +50,8 @@ fun BottomSheetContent(
                 color = Color.White
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+            Column(
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
                     text = article.author ?: "",
@@ -60,11 +59,12 @@ fun BottomSheetContent(
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = article.source?.name ?: "",
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = Color.Gray
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))

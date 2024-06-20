@@ -106,8 +106,6 @@ fun Share(text: String, context: Context) {
         type = "text/plain"
     }
     val shareIntent = Intent.createChooser(sendIntent, null)
-
-
     Button(colors = ButtonDefaults.buttonColors(containerColor = Color.Black), onClick = {
         startActivity(context, shareIntent, null)
     }) {

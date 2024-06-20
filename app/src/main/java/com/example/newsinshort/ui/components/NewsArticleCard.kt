@@ -3,6 +3,7 @@ package com.example.newsinshort.ui.components
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
@@ -44,7 +46,7 @@ fun NewsArticleCard(
     article: Article,
     onCardClicked: (Article) -> Unit
 ) {
-    if(article.content!=null) {
+    if (article.content != null) {
         val date = dateFormatter(article.publishedAt)
         val animatable = remember {
             Animatable(0.5f)
@@ -108,25 +110,36 @@ fun NewsArticleCard(
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(8.dp))
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text(
-                        text = article.source?.name ?: "",
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        color = Color.White
-                    )
-                    Text(
-                        text = date,
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        color = Color.White
+                    Column(
+                    ) {
+                        Text(
+                            text = article.source?.name ?: "",
+                            style = MaterialTheme.typography.bodySmall,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            color = Color.White
+                        )
+                        Text(
+                            text = date,
+                            style = MaterialTheme.typography.bodySmall,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            color = Color.Gray
+                        )
+                    }
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_favorite),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(24.dp)
                     )
                 }
+
             }
         }
     }
