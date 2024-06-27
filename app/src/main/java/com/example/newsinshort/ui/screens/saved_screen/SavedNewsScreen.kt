@@ -53,7 +53,7 @@ fun SavedNewsScreen(
             ) {
                 savedNewsViewModel.allSavedNews.observe(lifecycleOwner, Observer {
                     items(it) { article ->
-                        SavedArticleCard(article = article)
+                        SavedArticleCard(navController= navController,article = article)
                     }
                 })
             }

@@ -29,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
@@ -42,8 +43,11 @@ import com.example.newsinshort.utils.dateFormatter
 @Composable
 fun SavedArticleCard(
     modifier: Modifier = Modifier,
-    article: SavedArticle
+    article: SavedArticle,
+    navController: NavController,
 ) {
+    val argKey = "webUrl"
+
     if(article.content!=null) {
         val date = dateFormatter(article.publishedAt)
         val animatable = remember {
@@ -65,7 +69,8 @@ fun SavedArticleCard(
                     this.scaleX = animatable.value
                     this.scaleY = animatable.value
                 }
-                .clickable { /*onCardClicked(article)*/ }) {
+                .clickable { navController.navigate("article_screen?${argKey}=${article.url}")
+                }) {
 //        ImageHolder(imageUrl = article.urlToImage)
             if (article.urlToImage != null) {
                 AsyncImage(
