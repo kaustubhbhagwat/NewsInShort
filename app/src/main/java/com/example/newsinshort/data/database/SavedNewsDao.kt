@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SavedNewsDao {
-    @Upsert
+    @Upsert()
     suspend fun insertSavedNews(article: SavedArticle)
 
     @Upsert
@@ -19,5 +19,9 @@ interface SavedNewsDao {
 
     @Query("SELECT EXISTS(SELECT * FROM ARTICLES WHERE url = :url)")
     fun isRowIsExist(url : String) : Flow<Boolean>
+
+    @Query("SELECT url FROM ARTICLES WHERE url = :url LIMIT 1")
+    fun ifUrlExists(url : String) : Boolean
+
 
 }

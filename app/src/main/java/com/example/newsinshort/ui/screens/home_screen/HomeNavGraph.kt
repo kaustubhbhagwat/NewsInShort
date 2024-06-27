@@ -38,7 +38,6 @@ fun HomeNavGraph(navController: NavHostController) {
            BreakingNewsScreen(navController = navController)
         }
 
-
         composable(route = BottomBarScreen.SavedNews.route) {
             SavedNewsScreen(
                 navController = navController

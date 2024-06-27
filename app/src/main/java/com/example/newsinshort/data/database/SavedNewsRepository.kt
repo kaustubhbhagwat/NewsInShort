@@ -17,4 +17,6 @@ class SavedNewsRepository @Inject constructor(private val savedNewsDao: SavedNew
     suspend fun saveNews(article: SavedArticle) = savedNewsDao.saveNews(article)
 
     fun isRowExist(url : String) = savedNewsDao.isRowIsExist(url)
+
+    fun ifUrlExists(url: String): Boolean = savedNewsDao.ifUrlExists(url)
 }

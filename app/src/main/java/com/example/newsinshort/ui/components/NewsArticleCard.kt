@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -41,6 +42,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
@@ -52,22 +54,31 @@ import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.data.database.model.SavedArticle
 import com.example.newsinshort.data.database.model.Source
 import com.example.newsinshort.utils.dateFormatter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.newCoroutineContext
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun NewsArticleCard(
-    modifier: Modifier = Modifier, article: Article, onCardClicked: (Article) -> Unit
+    modifier: Modifier = Modifier, article: Article, onCardClicked: (Article) -> Unit,
+    savedNewsViewModel: SavedNewsViewModel = hiltViewModel()
+
 ) {
-    val savedNewsViewModel: SavedNewsViewModel = hiltViewModel()
     val context = LocalContext.current
+    val clickState = remember { mutableIntStateOf(0) }
     val lifecycleOwner = LocalLifecycleOwner.current
     val coroutineScope = rememberCoroutineScope()
-
-
-
-
+    val allUrls: ArrayList<String> = ArrayList()
+    savedNewsViewModel.allSavedNews.observeForever {
+        for (i in it) {
+            allUrls.add(i.url)
+        }
+    }
 
     if (article.content != null) {
         val date = dateFormatter(article.publishedAt)
@@ -146,58 +157,68 @@ fun NewsArticleCard(
                             color = Color.Gray
                         )
                     }
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_favorite_unselected),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(24.dp)
-                            .clickable {
-                                val savedArticle: SavedArticle
-                                article.let {
-                                    savedArticle = SavedArticle(
-                                        title = it.title,
-                                        author = it.author,
-                                        description = it.description,
-                                        content = it.content,
-                                        publishedAt = it.publishedAt,
-                                        source = Source(
-                                            name = it.source?.name.toString(),
-                                            id = it.source?.id.toString()
-                                        ),
-                                        url = it.url,
-                                        urlToImage = it.urlToImage,
-                                    )
+
+                    if (allUrls.contains(article.url)) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_favorite_selected),
+                            contentDescription = "Fav")
+                    } else {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_favorite_unselected),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(24.dp)
+                                .clickable {
+                                    clickState.value++
+                                    val savedArticle: SavedArticle
+                                    article.let {
+                                        savedArticle = SavedArticle(
+                                            title = it.title,
+                                            author = it.author,
+                                            description = it.description,
+                                            content = it.content,
+                                            publishedAt = it.publishedAt,
+                                            source = Source(
+                                                name = it.source?.name.toString(),
+                                                id = it.source?.id.toString()
+                                            ),
+                                            url = it.url,
+                                            urlToImage = it.urlToImage,
+                                        )
+
+                                        if (allUrls.isEmpty()) {
+                                            Toast
+                                                .makeText(
+                                                    context,
+                                                    "Article has been saved",
+                                                    Toast.LENGTH_LONG
+                                                )
+                                                .show()
+                                            savedNewsViewModel.saveNews(savedArticle)
+                                        }
+
+                                        if (allUrls.contains(savedArticle.url)) {
+                                            Toast
+                                                .makeText(
+                                                    context,
+                                                    "Article already saved",
+                                                    Toast.LENGTH_LONG
+                                                )
+                                                .show()
+                                        } else {
+                                            Toast
+                                                .makeText(
+                                                    context,
+                                                    "Article has been saved",
+                                                    Toast.LENGTH_LONG
+                                                )
+                                                .show()
+                                            savedNewsViewModel.saveNews(savedArticle)
+                                        }
+                                    }
                                 }
-                                savedNewsViewModel.saveNews(savedArticle)
-
-                                coroutineScope.launch {
-                                    val ifExist1 = savedNewsViewModel.isRowExist(savedArticle.url).start()
-                                    val ifExist2 = savedNewsViewModel.isRowExist(savedArticle.url).start()
-                                }
-
-
-//                                savedNewsViewModel.allSavedNews.observe(lifecycleOwner) {
-//                                    it.forEachIndexed { index, newArticle ->
-//                                        if (savedArticle.url == it[index].url) {
-//                                            Toast
-//                                                .makeText(
-//                                                    context,
-//                                                    "Article Already Saved",
-//                                                    Toast.LENGTH_LONG
-//                                                )
-//                                                .show()
-//                                        } else {
-//                                            Toast
-//                                                .makeText(
-//                                                    context,
-//                                                    "Article Saved",
-//                                                    Toast.LENGTH_LONG
-//                                                )
-//                                                .show()
-//                                        }
-//                                    }
-//                                }
-                            })
+                        )
+                    }
                 }
             }
         }
