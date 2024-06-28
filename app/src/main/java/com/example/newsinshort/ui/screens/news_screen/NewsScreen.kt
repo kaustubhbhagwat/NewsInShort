@@ -41,24 +41,16 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.newsinshort.data.database.SavedNewsViewModel
 import com.example.newsinshort.data.database.entities.Article
-import com.example.newsinshort.data.database.model.SavedArticle
-import com.example.newsinshort.data.database.model.Source
 import com.example.newsinshort.ui.components.BottomSheetContent
 import com.example.newsinshort.ui.components.CategoryTabRow
 import com.example.newsinshort.ui.components.NewsArticleCard
 import com.example.newsinshort.ui.components.NewsScreenTopBar
 import com.example.newsinshort.ui.components.RetryContent
 import com.example.newsinshort.ui.components.SearchAppBar
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.net.URLEncoder
-
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -88,8 +80,6 @@ fun NewsScreen(
 
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
-
-    val savedNewsViewModel: SavedNewsViewModel = hiltViewModel()
 
     LaunchedEffect(key1 = horizontalPagerState) {
         snapshotFlow { horizontalPagerState.currentPage }.collect { page ->
@@ -158,7 +148,7 @@ fun NewsScreen(
                             onSearchIconClicked = {
                                 onEvent(NewsScreenEvent.onSearchIconClicked)
                                 coroutineScope.launch {
-                                    delay(500)
+                                    delay(100)
                                     focusRequester.requestFocus()
                                 }
                             }

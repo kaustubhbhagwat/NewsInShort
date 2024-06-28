@@ -8,9 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsinshort.ui.repository.NewsRepository2
 import com.example.newsinshort.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -59,26 +61,26 @@ class NewsScreenViewModel @Inject constructor(
 
     private fun getNewsArticles(category: String) {
         viewModelScope.launch {
-            state = state.copy(isLoading = true)
-            val result = newsRepository.getTopHeadlines(category = category)
-            when (result) {
-                is Resource.Success -> {
-                    state = state.copy(
-                        articles = result.data ?: emptyList(),
-                        isLoading = false,
-                        error = null
-                    )
-                }
-
-                is Resource.Error -> {
-                    state = state.copy(
-                        articles = emptyList(),
-                        isLoading = false,
-                        error = result.message
-                    )
+            withContext(Dispatchers.IO){
+                state = state.copy(isLoading = true)
+                val result = newsRepository.getTopHeadlines(category = category)
+                when (result) {
+                    is Resource.Success -> {
+                        state = state.copy(
+                            articles = result.data ?: emptyList(),
+                            isLoading = false,
+                            error = null
+                        )
+                    }
+                    is Resource.Error -> {
+                        state = state.copy(
+                            articles = emptyList(),
+                            isLoading = false,
+                            error = result.message
+                        )
+                    }
                 }
             }
-
         }
     }
 
@@ -90,21 +92,23 @@ class NewsScreenViewModel @Inject constructor(
         viewModelScope.launch {
             state = state.copy(isLoading = true)
             val result = newsRepository.searchForNews(query = query)
-            when (result) {
-                is Resource.Success -> {
-                    state = state.copy(
-                        articles = result.data ?: emptyList(),
-                        isLoading = false,
-                        error = null
-                    )
-                }
+            withContext(Dispatchers.IO){
+                when (result) {
+                    is Resource.Success -> {
+                        state = state.copy(
+                            articles = result.data ?: emptyList(),
+                            isLoading = false,
+                            error = null
+                        )
+                    }
 
-                is Resource.Error -> {
-                    state = state.copy(
-                        articles = emptyList(),
-                        isLoading = false,
-                        error = result.message
-                    )
+                    is Resource.Error -> {
+                        state = state.copy(
+                            articles = emptyList(),
+                            isLoading = false,
+                            error = result.message
+                        )
+                    }
                 }
             }
         }
