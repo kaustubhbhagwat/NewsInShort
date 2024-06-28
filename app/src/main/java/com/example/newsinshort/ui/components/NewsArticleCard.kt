@@ -113,7 +113,7 @@ fun NewsArticleCard(
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .diskCachePolicy(CachePolicy.ENABLED).scale(Scale.FILL)
-                        .precision(Precision.EXACT).data(article.urlToImage).crossfade(500).build(),
+                        .precision(Precision.EXACT).data(article.urlToImage).crossfade(100).build(),
                     placeholder = painterResource(R.mipmap.news_placeholder_img),
                     contentDescription = stringResource(R.string.image_description),
                     contentScale = ContentScale.FillWidth
@@ -192,6 +192,7 @@ fun NewsArticleCard(
                         onCheckedChange = {
                             checkedState.value = !checkedState.value
                             if (allUrls.isEmpty()) {
+                                savedNewsViewModel.saveNews(savedArticle)
                                 Toast
                                     .makeText(
                                         context,
@@ -199,7 +200,6 @@ fun NewsArticleCard(
                                         Toast.LENGTH_LONG
                                     )
                                     .show()
-                                savedNewsViewModel.saveNews(savedArticle)
                             }
 
                             if (allUrls.contains(savedArticle.url)) {
