@@ -2,7 +2,6 @@ package com.example.newsinshort.ui.screens.news_screen
 
 import com.example.newsinshort.data.database.entities.Article
 
-
 sealed class NewsScreenEvent {
     data class onNewsCardClicked(var article: Article) : NewsScreenEvent()
 
