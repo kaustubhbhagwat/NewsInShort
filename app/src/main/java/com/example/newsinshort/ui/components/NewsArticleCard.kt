@@ -81,10 +81,7 @@ fun NewsArticleCard(
     val lifecycleOwner = LocalLifecycleOwner.current
     val coroutineScope = rememberCoroutineScope()
     val allUrls: ArrayList<String> = ArrayList()
-
     val checkedState = remember { mutableStateOf(false) }
-
-
 
     savedNewsViewModel.allSavedNews.observeForever {
         for (i in it) {
@@ -168,11 +165,6 @@ fun NewsArticleCard(
                             color = Color.Gray
                         )
                     }
-
-                    if (allUrls.contains(article.url)) {
-                        checkedState.value = true
-                    }
-
                     val savedArticle: SavedArticle
                     article.let {
                         savedArticle = SavedArticle(
@@ -189,6 +181,9 @@ fun NewsArticleCard(
                             urlToImage = it.urlToImage,
                         )
                     // on below line we are creating icon toggle button.
+                        if (allUrls.contains(article.url)) {
+                            checkedState.value = true
+                        }
                     IconToggleButton(
                         // on below line we are
                         // specifying default check state
