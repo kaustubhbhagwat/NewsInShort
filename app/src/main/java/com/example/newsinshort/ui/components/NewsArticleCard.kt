@@ -12,7 +12,6 @@ import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +22,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -32,26 +30,18 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -68,9 +58,7 @@ import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.data.database.model.SavedArticle
 import com.example.newsinshort.data.database.model.Source
 import com.example.newsinshort.utils.dateFormatter
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun NewsArticleCard(
     modifier: Modifier = Modifier, article: Article, onCardClicked: (Article) -> Unit,
@@ -78,8 +66,6 @@ fun NewsArticleCard(
 
 ) {
     val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val coroutineScope = rememberCoroutineScope()
     val allUrls: ArrayList<String> = ArrayList()
     val checkedState = remember { mutableStateOf(false) }
 
@@ -88,6 +74,7 @@ fun NewsArticleCard(
             allUrls.add(i.url)
         }
     }
+
     if (article.content != null) {
         val date = dateFormatter(article.publishedAt)
         val animatable = remember {
@@ -123,12 +110,11 @@ fun NewsArticleCard(
                     model = ImageRequest.Builder(LocalContext.current)
                         .diskCachePolicy(CachePolicy.ENABLED).scale(Scale.FILL)
                         .precision(Precision.EXACT).data(R.mipmap.news_placeholder_img)
-                        .crossfade(500).build(),
+                        .crossfade(100).build(),
                     contentDescription = stringResource(R.string.image_description),
                     contentScale = ContentScale.FillWidth
                 )
             }
-
             Column(modifier = Modifier.padding(12.dp)) {
                 Spacer(
                     modifier = Modifier
@@ -180,50 +166,50 @@ fun NewsArticleCard(
                             url = it.url,
                             urlToImage = it.urlToImage,
                         )
-                    // on below line we are creating icon toggle button.
+                        // on below line we are creating icon toggle button.
                         if (allUrls.contains(article.url)) {
                             checkedState.value = true
                         }
-                    IconToggleButton(
-                        // on below line we are
-                        // specifying default check state
-                        checked = checkedState.value,
-                        // on below line we are adding on check change
-                        onCheckedChange = {
-                            checkedState.value = !checkedState.value
-                            if (allUrls.isEmpty()) {
-                                savedNewsViewModel.saveNews(savedArticle)
-                                Toast
-                                    .makeText(
-                                        context,
-                                        "Article has been saved",
-                                        Toast.LENGTH_LONG
-                                    )
-                                    .show()
-                            }
+                        IconToggleButton(
+                            // on below line we are
+                            // specifying default check state
+                            checked = checkedState.value,
+                            // on below line we are adding on check change
+                            onCheckedChange = {
+                                checkedState.value = !checkedState.value
+                                if (allUrls.isEmpty()) {
+                                    savedNewsViewModel.saveNews(savedArticle)
+                                    Toast
+                                        .makeText(
+                                            context,
+                                            "Article has been saved",
+                                            Toast.LENGTH_LONG
+                                        )
+                                        .show()
+                                }
 
-                            if (allUrls.contains(savedArticle.url)) {
-                                Toast
-                                    .makeText(
-                                        context,
-                                        "Article already saved",
-                                        Toast.LENGTH_LONG
-                                    )
-                                    .show()
-                            } else {
-                                Toast
-                                    .makeText(
-                                        context,
-                                        "Article has been saved",
-                                        Toast.LENGTH_LONG
-                                    )
-                                    .show()
-                                savedNewsViewModel.saveNews(savedArticle)
-                            }
-                        },
-                        // on below line we are adding a padding
-                        modifier = Modifier.padding(0.dp)
-                    ) {
+                                if (allUrls.contains(savedArticle.url)) {
+                                    Toast
+                                        .makeText(
+                                            context,
+                                            "Article already saved",
+                                            Toast.LENGTH_LONG
+                                        )
+                                        .show()
+                                } else {
+                                    Toast
+                                        .makeText(
+                                            context,
+                                            "Article has been saved",
+                                            Toast.LENGTH_LONG
+                                        )
+                                        .show()
+                                    savedNewsViewModel.saveNews(savedArticle)
+                                }
+                            },
+                            // on below line we are adding a padding
+                            modifier = Modifier.padding(0.dp)
+                        ) {
                             // on below line we are creating a
                             // variable for our transition
                             val transition = updateTransition(checkedState.value)

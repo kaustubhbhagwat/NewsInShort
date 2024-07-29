@@ -6,10 +6,8 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -39,7 +37,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.newsinshort.data.database.entities.Article
 import com.example.newsinshort.ui.components.BottomSheetContent
@@ -66,7 +63,7 @@ fun NewsScreen(
     val coroutineScope = rememberCoroutineScope()
 
     val categories =
-        listOf("General","Business","Technology","Health","Science","Entertainment")
+        listOf("General","Health","Science","Technology","Business","Entertainment")
 
     val focusRequester = remember {
         FocusRequester()
@@ -202,10 +199,7 @@ fun NewsArticleList(
     onCardClicked: (Article) -> Unit,
     onRetry: () -> Unit
 ) {
-    LazyColumn(
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
+    LazyColumn {
         items(state.articles) { article ->
             NewsArticleCard(
                 article = article,
