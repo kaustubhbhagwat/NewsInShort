@@ -13,6 +13,7 @@ Kotlin-based Android news app helps users stay up-to-date on the latest headline
 
 **Screenshots** :
  <table align="center">
+  <H1>All News</H1>
   <tr>
     <td><img src="https://github.com/user-attachments/assets/1d56fad2-46af-4394-890a-31371d44c336" alt="News home" style="width:200px;height:400px;"></td>
     <td><img src="https://github.com/user-attachments/assets/1729fbf2-3a64-489c-aec8-627334d7f9d0" alt="Read News" style="width:200px;height:400px;"></td>
