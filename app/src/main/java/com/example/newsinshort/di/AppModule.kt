@@ -88,7 +88,7 @@ class AppModule {
     @Singleton
     fun provideNewsApi(): NewsApi {
         val retrofit = Retrofit.Builder()
-            .baseUrl(NewsApi.BASE_URL)
+            .baseUrl(AppConstants.APP_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         return retrofit.create(NewsApi::class.java)
