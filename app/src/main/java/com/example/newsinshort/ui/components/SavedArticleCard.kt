@@ -1,5 +1,7 @@
 package com.example.newsinshort.ui.components
 
+import android.graphics.drawable.Icon
+import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -12,6 +14,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
@@ -36,7 +42,7 @@ import coil.request.ImageRequest
 import coil.size.Precision
 import coil.size.Scale
 import com.example.newsinshort.R
-import com.example.newsinshort.data.database.entities.Article
+import com.example.newsinshort.data.database.SavedNewsViewModel
 import com.example.newsinshort.data.database.model.SavedArticle
 import com.example.newsinshort.utils.dateFormatter
 
@@ -45,10 +51,12 @@ fun SavedArticleCard(
     modifier: Modifier = Modifier,
     article: SavedArticle,
     navController: NavController,
+    savedNewsViewModel: SavedNewsViewModel = hiltViewModel()
 ) {
     val argKey = "webUrl"
+    val context = LocalContext.current
 
-    if(article.content!=null) {
+    if (article.content != null) {
         val date = dateFormatter(article.publishedAt)
         val animatable = remember {
             Animatable(0.5f)
@@ -56,7 +64,6 @@ fun SavedArticleCard(
         LaunchedEffect(key1 = true) {
             animatable.animateTo(1f, tween(350, easing = LinearEasing))
         }
-
         ElevatedCard(
             colors = CardDefaults.cardColors(
                 containerColor = Color.DarkGray
@@ -69,9 +76,9 @@ fun SavedArticleCard(
                     this.scaleX = animatable.value
                     this.scaleY = animatable.value
                 }
-                .clickable { navController.navigate("article_screen?${argKey}=${article.url}")
+                .clickable {
+                    navController.navigate("article_screen?${argKey}=${article.url}")
                 }) {
-//        ImageHolder(imageUrl = article.urlToImage)
             if (article.urlToImage != null) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -117,20 +124,36 @@ fun SavedArticleCard(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
-                        text = article.source?.name ?: "",
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        color = Color.White
-                    )
-                    Text(
-                        text = date,
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        color = Color.White
-                    )
+                    Column {
+                        Text(
+                            text = article.source?.name ?: "",
+                            style = MaterialTheme.typography.bodySmall,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            color = Color.White
+                        )
+                        Text(
+                            text = date,
+                            style = MaterialTheme.typography.bodySmall,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            color = Color.White
+                        )
+                    }
+                    Icon(
+                        imageVector = Icons.Filled.Delete,
+                        contentDescription = "Delete",
+                        Modifier.clickable {
+                            savedNewsViewModel.deleteArticle(article.url)
+                            navController.navigateUp()
+                            Toast
+                                .makeText(
+                                    context,
+                                    "Article deleted",
+                                    Toast.LENGTH_LONG
+                                )
+                                .show()
+                        })
                 }
             }
         }

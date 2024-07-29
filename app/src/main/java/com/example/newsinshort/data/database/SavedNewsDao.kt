@@ -23,5 +23,6 @@ interface SavedNewsDao {
     @Query("SELECT url FROM ARTICLES WHERE url = :url LIMIT 1")
     fun ifUrlExists(url : String) : Boolean
 
-
+    @Query("DELETE FROM ARTICLES WHERE url = :url")
+    suspend fun deleteByUserId(url: String)
 }

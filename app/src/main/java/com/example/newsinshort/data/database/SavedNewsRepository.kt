@@ -14,6 +14,11 @@ class SavedNewsRepository @Inject constructor(private val savedNewsDao: SavedNew
         savedNewsDao.insertSavedNews(article)
     }
 
+    @WorkerThread
+    suspend fun deleteSavedNews(url: String){
+        savedNewsDao.deleteByUserId(url)
+    }
+
     suspend fun saveNews(article: SavedArticle) = savedNewsDao.saveNews(article)
 
     fun isRowExist(url : String) = savedNewsDao.isRowIsExist(url)

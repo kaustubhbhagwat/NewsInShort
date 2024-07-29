@@ -33,6 +33,10 @@ class SavedNewsViewModel @Inject constructor(private val savedNewsRepository: Sa
         savedNewsRepository.insertSavedNews(article)
     }
 
+    fun deleteArticle(url: String) = viewModelScope.launch(Dispatchers.IO) {
+        savedNewsRepository.deleteSavedNews(url)
+    }
+
     fun saveNews(article: SavedArticle) = viewModelScope.launch {
         savedNewsRepository.saveNews(article)
     }

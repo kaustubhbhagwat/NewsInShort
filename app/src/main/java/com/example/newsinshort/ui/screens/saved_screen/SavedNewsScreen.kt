@@ -1,6 +1,5 @@
 package com.example.newsinshort.ui.screens.saved_screen
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,12 +19,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.example.newsinshort.data.database.SavedNewsViewModel
 import com.example.newsinshort.ui.components.SavedArticleCard
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SavedNewsScreen(
     navController: NavController,
@@ -47,11 +44,11 @@ fun SavedNewsScreen(
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                savedNewsViewModel.allSavedNews.observe(lifecycleOwner, Observer {
+                savedNewsViewModel.allSavedNews.observe(lifecycleOwner) {
                     items(it) { article ->
                         SavedArticleCard(navController = navController, article = article)
                     }
-                })
+                }
             }
         }
     }
