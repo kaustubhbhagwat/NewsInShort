@@ -8,6 +8,7 @@ Kotlin-based Android news app helps users stay up-to-date on the latest headline
 * Browse News
 * Search News
 * Read Full News Article
+<img width="331" alt="Screenshot 2024-07-29 at 7 28 30 PM" src="">
 
 
 
@@ -24,6 +25,7 @@ Kotlin-based Android news app helps users stay up-to-date on the latest headline
 <table align="center">
    <H1>Saved News</H1>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/6eec0848-b04f-473a-9fcc-abcc3606c600" alt="News home" style="width:200px;height:400px;"></td>
+    <td><img src="https://github.com/user-attachments/assets/6eec0848-b04f-473a-9fcc-abcc3606c600" alt="Saved News" style="width:200px;height:400px;"></td>
+    <td><img src="https://github.com/user-attachments/assets/e2335d4c-d058-444c-963e-cdeaa628430f" alt="Saved News" style="width:200px;height:400px;"></td>
   </tr>
 </table>
