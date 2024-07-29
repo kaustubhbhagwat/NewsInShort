@@ -177,7 +177,7 @@ fun NewsArticleCard(
                             // on below line we are adding on check change
                             onCheckedChange = {
                                 checkedState.value = !checkedState.value
-                                if (allUrls.isEmpty()) {
+                                if (allUrls.isEmpty() || article.url != savedArticle.url) {
                                     savedNewsViewModel.saveNews(savedArticle)
                                     Toast
                                         .makeText(
@@ -187,7 +187,6 @@ fun NewsArticleCard(
                                         )
                                         .show()
                                 }
-
                                 if (allUrls.contains(savedArticle.url)) {
                                     Toast
                                         .makeText(
