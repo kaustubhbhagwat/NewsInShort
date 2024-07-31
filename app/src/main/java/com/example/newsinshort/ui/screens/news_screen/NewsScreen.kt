@@ -63,7 +63,7 @@ fun NewsScreen(
     val coroutineScope = rememberCoroutineScope()
 
     val categories =
-        listOf("General","Health",/*"Science","Technology","Business","Entertainment"*/)
+        listOf("General","Health","Science","Technology","Business","Entertainment")
 
     val focusRequester = remember {
         FocusRequester()
@@ -89,7 +89,6 @@ fun NewsScreen(
 
     val stateSheet = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var shouldShowBottomSheet by remember { mutableStateOf(false) }
-
 
     if (shouldShowBottomSheet) {
         ModalBottomSheet(onDismissRequest = { shouldShowBottomSheet = false },
