@@ -172,7 +172,7 @@ fun NewsArticleCard(
                         IconToggleButton(
                             // on below line we are
                             // specifying default check state
-                            checked = checkedState.value,
+                            checked = false,
                             // on below line we are adding on check change
                             onCheckedChange = {
                                 checkedState.value = !checkedState.value
@@ -190,10 +190,11 @@ fun NewsArticleCard(
                                     Toast
                                         .makeText(
                                             context,
-                                            "Article already saved",
+                                            "Article Deleted",
                                             Toast.LENGTH_LONG
                                         )
                                         .show()
+                                    savedNewsViewModel.deleteArticle(savedArticle.url)
                                 }
                                 else {
                                     Toast
