@@ -63,7 +63,6 @@ import com.example.newsinshort.utils.dateFormatter
 fun NewsArticleCard(
     modifier: Modifier = Modifier, article: Article, onCardClicked: (Article) -> Unit,
     savedNewsViewModel: SavedNewsViewModel = hiltViewModel()
-
 ) {
     val context = LocalContext.current
     val allUrls: ArrayList<String> = ArrayList()
@@ -186,8 +185,8 @@ fun NewsArticleCard(
                                             Toast.LENGTH_LONG
                                         )
                                         .show()
-                                }
-                                if (allUrls.contains(savedArticle.url)) {
+                                    allUrls.add(savedArticle.url)
+                                }else if (allUrls.contains(savedArticle.url)) {
                                     Toast
                                         .makeText(
                                             context,
@@ -195,7 +194,8 @@ fun NewsArticleCard(
                                             Toast.LENGTH_LONG
                                         )
                                         .show()
-                                } else {
+                                }
+                                else {
                                     Toast
                                         .makeText(
                                             context,

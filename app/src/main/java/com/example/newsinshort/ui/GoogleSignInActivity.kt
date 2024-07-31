@@ -110,7 +110,7 @@ class GoogleSignInActivity : Activity() {
                 Intent(
                     this@GoogleSignInActivity,
                     MainActivity::class.java
-                ).putExtra("USER_NAME", user.displayName)
+                ).putExtra("USER_NAME", user?.displayName)
             )
             finish()
         }

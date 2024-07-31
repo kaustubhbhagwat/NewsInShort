@@ -39,10 +39,17 @@ fun SavedNewsScreen(
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp
             )
-            Spacer(modifier = Modifier.size(5.dp))
+            Spacer(modifier = Modifier.size(16.dp))
+            Text(text = "Articles: " + savedNewsViewModel.allSavedNews.value?.size.toString(),
+                modifier = Modifier
+                    .fillMaxWidth(),
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                fontSize = 18.sp
+            )
             LazyColumn(
                 contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 savedNewsViewModel.allSavedNews.observe(lifecycleOwner) {
                     items(it) { article ->
