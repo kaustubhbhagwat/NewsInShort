@@ -3,6 +3,7 @@ package com.example.newsinshort.ui
 import com.example.newsinshort.R
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -105,6 +106,11 @@ class GoogleSignInActivity : Activity() {
         if (user == null) {
             signIn()
         } else {
+            val sharedPreferences = getSharedPreferences("USER_NAME", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("USER_NAME","")
+            editor.apply()
+
             Toast.makeText(this,"Welcome ${user.displayName}",Toast.LENGTH_LONG).show()
             startActivity(
                 Intent(

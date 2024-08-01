@@ -1,6 +1,7 @@
 package com.example.newsinshort.ui
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.Settings.Global.getString
@@ -27,6 +28,7 @@ import com.example.newsinshort.notifications.EnterTokenDialog
 //import com.example.newsinshort.ui.navigation.AppNavigationGraph
 import com.example.newsinshort.ui.navigation.NavGraphSetup
 import com.example.newsinshort.ui.screens.home_screen.HomeScreen
+import com.example.newsinshort.ui.screens.onboarding_screen.OnboardingScreen
 import com.example.newsinshort.ui.theme.NewsInShortTheme
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Firebase
@@ -57,7 +59,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -65,31 +66,26 @@ class MainActivity : ComponentActivity() {
         logRegToken()
         setContent {
             NewsInShortTheme {
-//                val navController = rememberNavController()
-//                NavGraphSetup(navController = navController)
-                RootNavigationGraph(navController = rememberNavController())
-//                AppEntryPoint()
+                val navController = rememberNavController()
 
+                val sharedPreferences = getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
+                val isOnboardingComplete = sharedPreferences.getBoolean("isFinished", false)
 
-                // FCM code
-//                val state = viewModel.state
-//                if (state.isEnteringToken) {
-//                    EnterTokenDialog(
-//                        token = state.remoteToken, onTokenChange = viewModel::onRemoteTokenChanged,
-//                        onSubmit = viewModel::onSubmitToken
-//                    )
-//                } else {
-//                    ChatScreen(
-//                        messageText = state.messageText,
-//                        onMessageSend = {
-//                            viewModel.sendMessage(isBroadcast = false)
-//                        },
-//                        onMessageBroadcast = {
-//                            viewModel.sendMessage(isBroadcast = true)
-//                        },
-//                        onMessageChange = viewModel::onMessageChange
-//                    )
-//                }
+                if (isOnboardingComplete) {
+                    RootNavigationGraph(navController = rememberNavController())
+                } else {
+                    NavHost(navController = navController, startDestination = "Onboarding") {
+                        composable("Onboarding") {
+                            OnboardingScreen(
+                                navController = navController,
+                                context = this@MainActivity
+                            )
+                        }
+                        composable("Home") {
+                            RootNavigationGraph(navController = rememberNavController())
+                        }
+                    }
+                }
             }
         }
     }
@@ -123,7 +119,6 @@ fun logRegToken() {
             Log.w(TAG, "Fetching FCM registration token failed", task.exception)
             return@addOnCompleteListener
         }
-
         // Get new FCM registration token
         val token = task.result
 

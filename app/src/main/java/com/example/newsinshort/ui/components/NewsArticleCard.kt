@@ -102,7 +102,7 @@ fun NewsArticleCard(
                         .precision(Precision.EXACT).data(article.urlToImage).crossfade(100).build(),
                     placeholder = painterResource(R.mipmap.news_placeholder_img),
                     contentDescription = stringResource(R.string.image_description),
-                    contentScale = ContentScale.FillWidth
+                    contentScale = ContentScale.Inside
                 )
             } else {
                 AsyncImage(
@@ -186,7 +186,7 @@ fun NewsArticleCard(
                                         )
                                         .show()
                                     allUrls.add(savedArticle.url)
-                                }else if (allUrls.contains(savedArticle.url)) {
+                                } else if (allUrls.contains(savedArticle.url)) {
                                     Toast
                                         .makeText(
                                             context,
@@ -195,8 +195,7 @@ fun NewsArticleCard(
                                         )
                                         .show()
                                     savedNewsViewModel.deleteArticle(savedArticle.url)
-                                }
-                                else {
+                                } else {
                                     Toast
                                         .makeText(
                                             context,
