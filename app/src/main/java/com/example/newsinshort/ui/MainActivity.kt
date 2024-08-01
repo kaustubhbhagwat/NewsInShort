@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
                 val sharedPreferences = getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
                 val isOnboardingComplete = sharedPreferences.getBoolean("isFinished", false)
 
-                if (isOnboardingComplete) {
+                if (!isOnboardingComplete) {
                     RootNavigationGraph(navController = rememberNavController())
                 } else {
                     NavHost(navController = navController, startDestination = "Onboarding") {

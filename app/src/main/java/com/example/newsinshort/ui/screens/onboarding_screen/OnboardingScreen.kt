@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -48,9 +49,9 @@ import kotlinx.coroutines.launch
 fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
 
     val animations = listOf(
-        R.raw.intro1,
-        R.raw.intro2,
-        R.raw.intro3
+        R.raw.newspaper,
+        R.raw.newsletter,
+        R.raw.newslady
     )
 
     val titles = listOf(
@@ -67,7 +68,6 @@ fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
 
 
     val pagerState = rememberPagerState(pageCount = animations.size)
-
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -89,13 +89,13 @@ fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
                 LottieAnimation(
                     composition = composition,
                     iterations = LottieConstants.IterateForever,
-                    modifier = Modifier.size(400.dp)
+                    modifier = Modifier.size(300.dp)
                 )
 
                 Text(
                     text = titles[currentPage],
                     textAlign = TextAlign.Center,
-                    fontSize = 44.sp,
+                    fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
@@ -105,13 +105,13 @@ fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
                     fontSize = 20.sp
 
                 )
+                PageIndicator(
+                    pageCount = animations.size,
+                    currentPage = pagerState.currentPage,
+                    modifier = Modifier.padding(60.dp)
+                )
             }
 
-            PageIndicator(
-                pageCount = animations.size,
-                currentPage = pagerState.currentPage,
-                modifier = Modifier.padding(60.dp)
-            )
         }
 
         ButtonsSection(
@@ -139,7 +139,7 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
                     .clickable {
 
                         scope.launch {
-                            val nextPage = pagerState.currentPage +1
+                            val nextPage = pagerState.currentPage + 1
                             pagerState.scrollToPage(nextPage)
                         }
                     },
@@ -152,8 +152,8 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
                     .align(Alignment.BottomStart)
                     .clickable {
                         scope.launch {
-                            val prevPage = pagerState.currentPage -1
-                            if (prevPage >= 0){
+                            val prevPage = pagerState.currentPage - 1
+                            if (prevPage >= 0) {
                                 pagerState.scrollToPage(prevPage)
                             }
                         }
