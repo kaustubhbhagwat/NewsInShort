@@ -12,9 +12,9 @@ import androidx.navigation.navArgument
 import com.example.newsinshort.data.database.model.SavedArticle
 import com.example.newsinshort.ui.Graph
 import com.example.newsinshort.ui.components.WebViewScreen
-import com.example.newsinshort.ui.screens.SearchNewsScreen
 import com.example.newsinshort.ui.screens.article_screen.ArticleScreen
 import com.example.newsinshort.ui.screens.breaking_news.BreakingNewsScreen
+import com.example.newsinshort.ui.screens.cars.screens.CarListScreen
 import com.example.newsinshort.ui.screens.news_screen.NewsScreenViewModel
 import com.example.newsinshort.ui.screens.saved_screen.SavedNewsScreen
 import com.example.newsinshort.utils.BottomBarScreen
@@ -25,7 +25,6 @@ fun HomeNavGraph(navController: NavHostController) {
 
     val snackBarState = remember { (SnackbarHostState()) }
     val argKey = "webUrl"
-
 
     NavHost(
         navController = navController,
@@ -45,7 +44,8 @@ fun HomeNavGraph(navController: NavHostController) {
         }
 
         composable(route = BottomBarScreen.SearchNews.route){
-            SearchNewsScreen(navController = navController)
+            CarListScreen()
+//            CarScreen()
         }
 
 

@@ -1,49 +1,34 @@
 package com.example.newsinshort.ui
 
-import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
-import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.newsinshort.NewsApplication.Companion.TAG
-import com.example.newsinshort.R
-import com.example.newsinshort.notifications.ChatScreen
 import com.example.newsinshort.notifications.ChatViewModel
-import com.example.newsinshort.notifications.EnterTokenDialog
-//import com.example.newsinshort.ui.navigation.AppNavigationGraph
 import com.example.newsinshort.ui.navigation.NavGraphSetup
 import com.example.newsinshort.ui.screens.home_screen.HomeScreen
 import com.example.newsinshort.ui.screens.onboarding_screen.OnboardingScreen
 import com.example.newsinshort.ui.theme.NewsInShortTheme
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.messaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-
 // Declare the launcher at the top of your Activity/Fragment:
-
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -71,7 +56,7 @@ class MainActivity : ComponentActivity() {
                 val sharedPreferences = getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
                 val isOnboardingComplete = sharedPreferences.getBoolean("isFinished", false)
 
-                if (!isOnboardingComplete) {
+                if (isOnboardingComplete) {
                     RootNavigationGraph(navController = rememberNavController())
                 } else {
                     NavHost(navController = navController, startDestination = "Onboarding") {

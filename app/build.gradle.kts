@@ -72,6 +72,7 @@ dependencies {
     implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
     implementation ("androidx.compose.material:material:1.6.7")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.4")
 
     //
     implementation(libs.androidx.appcompat)

@@ -7,17 +7,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.Badge
-import androidx.compose.material.BottomNavigationDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +30,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.newsinshort.R
-import com.example.newsinshort.ui.navigation.NavGraphSetup
 import com.example.newsinshort.ui.screens.news_screen.NewsScreenViewModel
 import com.example.newsinshort.utils.BottomBarScreen
 
@@ -78,18 +73,17 @@ fun BottomNavigation(navController: NavHostController) {
             hasNews = false
         ),
         BottomNavigationItem(
-            title = "Saved",
+            title = "Saved News",
             selectedIcon = ImageVector.vectorResource(id = R.drawable.ic_favorite),
             unSelectedIcon = ImageVector.vectorResource(id = R.drawable.ic_favorite),
             hasNews = false
-        )
-//        ,
-//        BottomNavigationItem(
-//            title = "Search",
-//            selectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
-//            unSelectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
-//            hasNews = false
-//        ),
+        ),
+        BottomNavigationItem(
+            title = "My Articles",
+            selectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
+            unSelectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
+            hasNews = false
+        ),
     )
 
     val screens =
