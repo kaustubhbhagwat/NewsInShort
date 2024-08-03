@@ -22,7 +22,6 @@ const val channelName = "com.example.newsinshort.notifications"
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-
     private fun getRemoteView(title:String, message:String): RemoteViews{
         val remoteView = RemoteViews("com.example.newsinshort.notifications", notification_view)
         remoteView.setTextViewText(R.id.title, title)
@@ -86,6 +85,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setAutoCancel(true)
             .setVibrate(longArrayOf(1000,1000,1000,1000))
             .setOnlyAlertOnce(true)
+            .setContentIntent(pendingIntent)
 
         builder.setContent(getRemoteView(title,description))
 
