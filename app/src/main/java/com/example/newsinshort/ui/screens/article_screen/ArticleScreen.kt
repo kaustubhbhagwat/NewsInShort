@@ -80,16 +80,26 @@ fun ArticleScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            AndroidView(factory = {
-                WebView(context).apply {
-                    webViewClient = object : WebViewClient() {
-                        override fun onPageFinished(view: WebView?, url: String?) {
-                            isLoading = false
+            AndroidView(
+                factory = { context ->
+                    WebView(context).apply {
+                        settings.javaScriptEnabled = true
+                        webViewClient = object :WebViewClient(){
+                            override fun onPageFinished(view: WebView?, url: String?) {
+                                super.onPageFinished(view, url)
+                                isLoading = false
+                            }
                         }
+
+                        settings.loadWithOverviewMode = true
+                        settings.useWideViewPort = true
+                        settings.setSupportZoom(true)
                     }
-                    loadUrl(url ?: " ")
+                },
+                update = { webView ->
+                    webView.loadUrl(url.toString())
                 }
-            })
+            )
             if (isLoading) {
                 CircularProgressIndicator()
             }
