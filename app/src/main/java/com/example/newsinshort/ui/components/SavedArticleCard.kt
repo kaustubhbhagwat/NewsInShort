@@ -56,7 +56,7 @@ fun SavedArticleCard(
     val argKey = "webUrl"
     val context = LocalContext.current
 
-    if (article.content != null) {
+    if (article != null) {
         val date = dateFormatter(article.publishedAt)
         val animatable = remember {
             Animatable(0.5f)
