@@ -8,8 +8,6 @@ Kotlin-based Android news app helps users stay up-to-date on the latest headline
 * Browse News
 * Search News
 * Read Full News Article
-<img width="331" alt="Screenshot 2024-07-29 at 7 28 30 PM" src="">
-
 
 
 **Screenshots** :
