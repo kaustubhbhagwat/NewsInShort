@@ -21,7 +21,7 @@ class NewsScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
     var state by mutableStateOf(NewsState())
-
+    
     private var searchJob: Job? = null
 
     fun onEvent(newsScreenEvent: NewsScreenEvent) {

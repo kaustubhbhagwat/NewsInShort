@@ -45,7 +45,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
     packaging {
         resources {
@@ -68,11 +68,11 @@ dependencies {
     implementation(libs.androidx.junit.ktx)
     implementation(libs.firebase.auth)
     // Import the BoM for the Firebase platform
-    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
-    implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
-    implementation ("androidx.compose.material:material:1.6.7")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.4")
+    implementation(libs.firebase.bom)
+    implementation (libs.firebase.ui.auth)
+    implementation (libs.androidx.material)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v287)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     //
     implementation(libs.androidx.appcompat)
